@@ -17,119 +17,133 @@ function Hero() {
       component="section"
       sx={{
         position: "relative",
-        minHeight: { xs: "auto", md: "calc(100vh - 100px)" },
-        pl: { xs: 2, sm: 4, md: 16, lg: 20 },
-        pr: { xs: 0, md: 0 },
-        pt: { xs: 3, md: 0 },
-        pb: { xs: 0, md: 0 },
+        minHeight: { xs: "auto", lg: "calc(100vh - 100px)" },
+        pl: { xs: 2, sm: 4, md: 6, lg: 20 },
+        pr: { xs: 0 },
+        pt: { xs: 3, sm: 4, md: 6, lg: 0 },
+        pb: { xs: 0, sm: 4, md: 6, lg: 0 },
         overflow: "hidden",
-        display: { xs: "flex", md: "block" },
-        flexDirection: { xs: "column", md: "unset" },
       }}
     >
-      {/* Text content */}
+      {/* Main content wrapper - flexbox for sm/md, absolute positioning for lg+ */}
       <Box
         sx={{
-          position: { xs: "relative", md: "absolute" },
-          top: { xs: "auto", md: "12%", lg: "10%" },
-          left: { xs: "auto", md: 140, lg: 180 },
-          maxWidth: { xs: "100%", md: "500px", lg: "600px" },
-          zIndex: 2,
-          mb: { xs: 4, md: 0 },
+          display: { xs: "flex", lg: "block" },
+          flexDirection: "column",
+          gap: { xs: 4, sm: 5, md: 6 },
         }}
       >
-        <Typography
-          variant="h1"
+        {/* Text content */}
+        <Box
           sx={{
-            fontFamily: "var(--font-family-primary)",
-            fontWeight: 800,
-            fontSize: {
-              xs: "var(--font-size-hero-xs)",
-              sm: "var(--font-size-hero-sm)",
-              md: "var(--font-size-hero-md)",
-              lg: "var(--font-size-hero-lg)",
-            },
-            lineHeight: 0.95,
-            color: "var(--color-text)",
-            mb: 3,
+            position: { xs: "relative", lg: "absolute" },
+            top: { lg: "10%" },
+            left: { lg: 180 },
+            maxWidth: { xs: "100%", sm: "100%", md: "100%", lg: "45%" },
+            zIndex: 2,
           }}
         >
-          KELLY
-          <br />
-          TON.
-        </Typography>
-        <Typography
-          sx={{
-            fontFamily: "var(--font-family-primary)",
-            fontWeight: 600,
-            fontSize: {
-              xs: "var(--font-size-subtitle-xs)",
-              sm: "var(--font-size-subtitle-sm)",
-              md: "var(--font-size-subtitle-md)",
-              lg: "var(--font-size-subtitle-lg)",
-            },
-            color: "var(--color-text)",
-          }}
-        >
-          Fullstack Engineer • UI/UX
-          <br />
-          Designer • Web Developer
-        </Typography>
-      </Box>
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: "var(--font-family-primary)",
+              fontWeight: 800,
+              fontSize: {
+                xs: "var(--font-size-hero-xs)",
+                sm: "var(--font-size-hero-sm)",
+                md: "var(--font-size-hero-md)",
+                lg: "var(--font-size-hero-lg)",
+              },
+              lineHeight: 0.95,
+              color: "var(--color-text)",
+              mb: 3,
+            }}
+          >
+            KELLY
+            <br />
+            TON.
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "var(--font-family-primary)",
+              fontWeight: 600,
+              fontSize: {
+                xs: "var(--font-size-subtitle-xs)",
+                sm: "var(--font-size-subtitle-sm)",
+                md: "var(--font-size-subtitle-md)",
+                lg: "var(--font-size-subtitle-lg)",
+              },
+              color: "var(--color-text)",
+            }}
+          >
+            Fullstack Engineer • UI/UX
+            <br />
+            Designer • Web Developer
+          </Typography>
+        </Box>
 
-      {/* Images */}
-      <Box
-        sx={{
-          position: { xs: "relative", md: "absolute" },
-          right: { xs: "auto", md: 0 },
-          top: { xs: "auto", md: "28%", lg: "25%" },
-          display: "flex",
-          gap: { xs: 0.5, sm: 1.5, md: 2, lg: 2.5 },
-          justifyContent: { xs: "flex-start", md: "flex-end" },
-          ml: { xs: -2, sm: 0 },
-          width: { xs: "100vw", md: "auto" },
-        }}
-      >
+        {/* Images */}
         <Box
-          component="img"
-          src={heroImage1}
-          alt="Kelly in library"
           sx={{
-            width: {
-              xs: "50vw",
-              sm: "200px",
-              md: "320px",
-              lg: "400px",
-            },
-            height: {
-              xs: "60vw",
-              sm: "280px",
-              md: "450px",
-              lg: "560px",
-            },
-            objectFit: "cover",
+            position: { xs: "relative", lg: "absolute" },
+            right: { lg: 0 },
+            top: { lg: "28%" },
+            display: "flex",
+            gap: { xs: 0.5, sm: 1.5, md: 2, lg: 2.5 },
+            justifyContent: { xs: "flex-start", sm: "flex-end" },
+            ml: { xs: -2, sm: 0 },
+            width: { xs: "100vw", sm: "auto" },
           }}
-        />
-        <Box
-          component="img"
-          src={heroImage2}
-          alt="Food photography"
-          sx={{
-            width: {
-              xs: "50vw",
-              sm: "200px",
-              md: "320px",
-              lg: "400px",
-            },
-            height: {
-              xs: "60vw",
-              sm: "280px",
-              md: "450px",
-              lg: "560px",
-            },
-            objectFit: "cover",
-          }}
-        />
+        >
+          <Box
+            component="img"
+            src={heroImage1}
+            alt="Kelly in library"
+            sx={{
+              width: {
+                xs: "50vw",
+                sm: "38vw",
+                md: "35vw",
+                lg: "24vw",
+                xl: "22vw",
+              },
+              maxWidth: { lg: "420px" },
+              height: {
+                xs: "60vw",
+                sm: "50vw",
+                md: "46vw",
+                lg: "32vw",
+                xl: "30vw",
+              },
+              maxHeight: { lg: "600px" },
+              objectFit: "cover",
+            }}
+          />
+          <Box
+            component="img"
+            src={heroImage2}
+            alt="Food photography"
+            sx={{
+              width: {
+                xs: "50vw",
+                sm: "38vw",
+                md: "35vw",
+                lg: "24vw",
+                xl: "22vw",
+              },
+              maxWidth: { lg: "420px" },
+              height: {
+                xs: "60vw",
+                sm: "50vw",
+                md: "46vw",
+                lg: "32vw",
+                xl: "30vw",
+              },
+              maxHeight: { lg: "600px" },
+              objectFit: "cover",
+            }}
+          />
+        </Box>
       </Box>
 
       {/* Mobile social icons - only visible on xs */}
