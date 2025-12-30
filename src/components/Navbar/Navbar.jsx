@@ -34,7 +34,7 @@ function Navbar() {
         position="static"
         elevation={0}
         sx={{
-          backgroundColor: "transparent",
+          backgroundColor: "var(--color-background)",
           color: "var(--color-text)",
         }}
       >
