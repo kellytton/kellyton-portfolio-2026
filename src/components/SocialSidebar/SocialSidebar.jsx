@@ -6,17 +6,17 @@ import EmailIcon from "@mui/icons-material/Email";
 const socialLinks = [
   {
     icon: LinkedInIcon,
-    href: "https://linkedin.com/in/kellyton",
+    href: "https://www.linkedin.com/in/kellytton/",
     label: "LinkedIn",
   },
   {
     icon: GitHubIcon,
-    href: "https://github.com/kellyton",
+    href: "https://github.com/kellytton",
     label: "GitHub",
   },
   {
     icon: EmailIcon,
-    href: "mailto:hello@kellyton.com",
+    href: "mailto:kthton@gmail.com",
     label: "Email",
   },
 ];
@@ -29,7 +29,7 @@ function SocialSidebar() {
         left: { xs: 16, md: 32, lg: 48 },
         top: "50%",
         bottom: 0,
-        display: "flex",
+        display: { xs: "none", sm: "flex" },
         flexDirection: "column",
         alignItems: "center",
         zIndex: 10,

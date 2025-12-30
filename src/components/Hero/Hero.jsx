@@ -1,6 +1,15 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import EmailIcon from "@mui/icons-material/Email";
 import heroImage1 from "../../assets/hero/hero-1.jpg";
 import heroImage2 from "../../assets/hero/hero-2.jpg";
+
+const socialLinks = [
+  { icon: LinkedInIcon, href: "https://www.linkedin.com/in/kellytton/", label: "LinkedIn" },
+  { icon: GitHubIcon, href: "https://github.com/kellytton", label: "GitHub" },
+  { icon: EmailIcon, href: "mailto:kthton@gmail.com", label: "Email" },
+];
 
 function Hero() {
   return (
@@ -8,20 +17,25 @@ function Hero() {
       component="section"
       sx={{
         position: "relative",
-        minHeight: "calc(100vh - 100px)",
-        pl: { xs: 12, md: 16, lg: 20 },
-        pr: 0,
+        minHeight: { xs: "auto", md: "calc(100vh - 100px)" },
+        pl: { xs: 2, sm: 4, md: 16, lg: 20 },
+        pr: { xs: 0, md: 0 },
+        pt: { xs: 3, md: 0 },
+        pb: { xs: 0, md: 0 },
         overflow: "hidden",
+        display: { xs: "flex", md: "block" },
+        flexDirection: { xs: "column", md: "unset" },
       }}
     >
-      {/* Left side - Text content */}
+      {/* Text content */}
       <Box
         sx={{
-          position: "absolute",
-          top: { xs: "15%", md: "12%", lg: "10%" },
-          left: { xs: 100, md: 140, lg: 180 },
-          maxWidth: { xs: "400px", md: "500px", lg: "600px" },
+          position: { xs: "relative", md: "absolute" },
+          top: { xs: "auto", md: "12%", lg: "10%" },
+          left: { xs: "auto", md: 140, lg: 180 },
+          maxWidth: { xs: "100%", md: "500px", lg: "600px" },
           zIndex: 2,
+          mb: { xs: 4, md: 0 },
         }}
       >
         <Typography
@@ -63,14 +77,17 @@ function Hero() {
         </Typography>
       </Box>
 
-      {/* Right side - Images */}
+      {/* Images */}
       <Box
         sx={{
-          position: "absolute",
-          right: 0,
-          top: { xs: "30%", md: "28%", lg: "25%" },
+          position: { xs: "relative", md: "absolute" },
+          right: { xs: "auto", md: 0 },
+          top: { xs: "auto", md: "28%", lg: "25%" },
           display: "flex",
-          gap: { xs: 1.5, md: 2, lg: 2.5 },
+          gap: { xs: 0.5, sm: 1.5, md: 2, lg: 2.5 },
+          justifyContent: { xs: "flex-start", md: "flex-end" },
+          ml: { xs: -2, sm: 0 },
+          width: { xs: "100vw", md: "auto" },
         }}
       >
         <Box
@@ -79,14 +96,14 @@ function Hero() {
           alt="Kelly in library"
           sx={{
             width: {
-              xs: "200px",
-              sm: "260px",
+              xs: "50vw",
+              sm: "200px",
               md: "320px",
               lg: "400px",
             },
             height: {
-              xs: "280px",
-              sm: "360px",
+              xs: "60vw",
+              sm: "280px",
               md: "450px",
               lg: "560px",
             },
@@ -99,20 +116,51 @@ function Hero() {
           alt="Food photography"
           sx={{
             width: {
-              xs: "200px",
-              sm: "260px",
+              xs: "50vw",
+              sm: "200px",
               md: "320px",
               lg: "400px",
             },
             height: {
-              xs: "280px",
-              sm: "360px",
+              xs: "60vw",
+              sm: "280px",
               md: "450px",
               lg: "560px",
             },
             objectFit: "cover",
           }}
         />
+      </Box>
+
+      {/* Mobile social icons - only visible on xs */}
+      <Box
+        sx={{
+          display: { xs: "flex", sm: "none" },
+          justifyContent: "flex-start",
+          gap: 2,
+          mt: 4,
+          pb: 4,
+        }}
+      >
+        {socialLinks.map((social) => (
+          <IconButton
+            key={social.label}
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+            sx={{
+              color: "var(--color-text)",
+              p: 1,
+              "&:hover": {
+                backgroundColor: "transparent",
+                opacity: 0.7,
+              },
+            }}
+          >
+            <social.icon sx={{ fontSize: 28 }} />
+          </IconButton>
+        ))}
       </Box>
     </Box>
   );
