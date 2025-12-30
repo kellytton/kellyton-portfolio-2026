@@ -35,7 +35,7 @@ function SkillCategory({ category, skills, isOpen, onToggle, isLast }) {
     <Box
       sx={{
         borderBottom: isLast ? "none" : "1px solid",
-        borderColor: "rgba(51, 51, 51, 0.2)",
+        borderColor: "rgba(51, 51, 51, 0.3)",
       }}
     >
       <Box

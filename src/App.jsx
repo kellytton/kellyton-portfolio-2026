@@ -1,5 +1,5 @@
 import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import { Navbar, Hero, SocialSidebar, About, Skills } from "./components";
+import { Navbar, Hero, SocialSidebar, About, Skills, Projects } from "./components";
 
 const theme = createTheme({
   components: {
@@ -23,6 +23,7 @@ function App() {
         <Hero />
         <About />
         <Skills />
+        <Projects />
       </Box>
     </ThemeProvider>
   );

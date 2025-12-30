@@ -1,0 +1,131 @@
+{
+  "projects": [
+    {
+      "featured": true,
+      "name": "TIC-TAC-POKÉ",
+      "description": "Tic-Tac-Poké is a Pokémon-themed twist on classic Tic-Tac-Toe designed as a polished desktop game. It features smooth gameplay, playful visuals, win and draw detection, and an intuitive restart flow for repeat play.",
+      "tools": ["ReactJS", "Electron.js", "Vite", "HTML/CSS", "Figma"],
+      "githubUrl": "https://github.com/kellytton/tic-tac-poke",
+      "imageUrl": "/src/assets/projects/tic-tac-poke.png",
+      "siteUrl": "",
+      "isWideImage": false
+    },
+    {
+      "featured": true,
+      "name": "SUNNYSIDE WEATHER",
+      "description": "SunnySide is a desktop weather app that pairs daily forecasts with food-inspired recommendations based on current conditions. It supports saved locations, real-time updates, and a polished light and dark interface.",
+      "tools": ["ReactJS", "Electron.js", "Vite", "HTML/CSS", "Figma"],
+      "githubUrl": "",
+      "imageUrl": "/src/assets/projects/sunnyside-weather.png",
+      "siteUrl": "",
+      "isWideImage": true
+    },
+    {
+      "featured": false,
+      "name": "Sentiment Analyzer",
+      "description": "A sentiment analysis tool that classifies political social media posts and visualizes sentiment trends through geospatial mapping.",
+      "tools": [
+        "Python",
+        "NLP",
+        "Sentiment Analysis",
+        "Geospatial Visualization",
+        "PostgreSQL"
+      ],
+      "githubUrl": "",
+      "imageUrl": "",
+      "siteUrl": ""
+    },
+    {
+      "featured": false,
+      "name": "EduPortal",
+      "description": "A secure academic management system supporting role-based access, GPA analysis, enrollment tracking, and institutional data integrity.",
+      "tools": [
+        "ReactJs",
+        "MUI",
+        "Python",
+        "Flask",
+        "SQLAlchemy",
+        "SQLite",
+        "Pandas"
+      ],
+      "githubUrl": "https://github.com/kellytton/eduPortal",
+      "imageUrl": "",
+      "siteUrl": ""
+    },
+    {
+      "featured": false,
+      "name": "Purrfect Path",
+      "description": "A cat-themed class scheduling platform that lets students plan courses, create and compare schedules with friends, and view their schedules and social connections.",
+      "tools": [
+        "HTML/CSS/JavaScript",
+        "Python",
+        "SQLAlchemy",
+        "Flask",
+        "PostgreSQL"
+      ],
+      "githubUrl": "https://github.com/kellytton/PurrfectPath",
+      "imageUrl": "",
+      "siteUrl": ""
+    },
+    {
+      "featured": false,
+      "name": "RUSH: Rapid Unix SHell",
+      "description": "A Unix shell in C that executes built-in and external commands, supports parallel execution, and features robust output redirection with error handling.",
+      "tools": ["C", "Linux"],
+      "githubUrl": "https://github.com/kellytton/RUSH-Rapid-Unix-SHell",
+      "imageUrl": "",
+      "siteUrl": ""
+    },
+    {
+      "featured": false,
+      "name": "RAID-Mapping",
+      "description": "A C program that maps sectors across RAID levels 0, 1, 01, 10, 4, and 5, identifying their location and corresponding redundancy (copy or parity) on disks.",
+      "tools": ["C", "Linux"],
+      "githubUrl": "https://github.com/kellytton/RAID-Mapping",
+      "imageUrl": "",
+      "siteUrl": ""
+    },
+    {
+      "featured": false,
+      "name": "Facial Recognition",
+      "description": "Implemented LeNet-5 CNN on Olivetti faces and benchmarked against PCA, LDA, and SVM, with performance analysis via CMC curves and confusion matrices.",
+      "tools": [
+        "Python",
+        "Google Colab",
+        "scikit-learn",
+        "NumPy",
+        "Matplotlib",
+        "Seaborn"
+      ],
+      "githubUrl": "https://github.com/kellytton/facial-recognition-machine-learning",
+      "imageUrl": "",
+      "siteUrl": ""
+    },
+    {
+      "featured": false,
+      "name": "Facial Recognition and Text Classification",
+      "description": "Built facial recognition and RNN-based text classifier with data augmentation, analyzing performance via training plots and confusion matrices.",
+      "tools": [
+        "Python",
+        "Google Colab",
+        "scikit-learn",
+        "NumPy",
+        "TensorFlow",
+        "Matplotlib",
+        "Seaborn"
+      ],
+      "githubUrl": "https://github.com/kellytton/facial-recognition-and-text-classification",
+      "imageUrl": "",
+      "siteUrl": ""
+    },
+    {
+      "featured": false,
+      "name": "Matching Game",
+      "description": "Created a responsive Everglow-themed card matching game with interactive animations, music-synced sound effects, and gameplay tracking.",
+      "tools": ["HTML/CSS/JavaScript"],
+      "githubUrl": "https://github.com/kellytton/matching-game-2022",
+      "imageUrl": "",
+      "siteUrl": ""
+    }
+  ]
+}
