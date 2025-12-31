@@ -1,95 +1,256 @@
 import { useState } from "react";
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography, IconButton, Dialog } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import LaunchIcon from "@mui/icons-material/Launch";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import CloseIcon from "@mui/icons-material/Close";
 import projectsData from "../../data/projects.json";
 
 const featuredProjects = projectsData.projects.filter((p) => p.featured);
 const additionalProjects = projectsData.projects.filter((p) => !p.featured);
 
-function ImageCarousel({ images, alt }) {
+function ImageCarousel({ images, captions = [], alt }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const hasMultiple = images.length > 1;
 
-  const goToPrevious = () => {
+  const goToPrevious = (e) => {
+    e?.stopPropagation();
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
-  const goToNext = () => {
+  const goToNext = (e) => {
+    e?.stopPropagation();
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  const handleImageClick = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const currentCaption = captions[currentIndex] || "";
+
   return (
-    <Box
-      sx={{
-        position: "relative",
-      }}
-    >
+    <>
       <Box
-        component="img"
-        src={images[currentIndex]}
-        alt={`${alt} - Image ${currentIndex + 1}`}
         sx={{
-          width: "auto",
-          maxWidth: "100%",
-          height: "auto",
-          maxHeight: "400px",
-          objectFit: "contain",
-          borderRadius: 1,
-          display: "block",
-          transition: "all 0.3s ease",
+          position: "relative",
         }}
-      />
-      {hasMultiple && (
-        <>
+      >
+        <Box
+          component="img"
+          src={images[currentIndex]}
+          alt={`${alt} - Image ${currentIndex + 1}`}
+          onClick={handleImageClick}
+          sx={{
+            width: "auto",
+            maxWidth: "100%",
+            height: "auto",
+            maxHeight: "400px",
+            objectFit: "contain",
+            borderRadius: 1,
+            display: "block",
+            transition: "all 0.3s ease",
+            cursor: "pointer",
+            "&:hover": {
+              opacity: 0.9,
+            },
+          }}
+        />
+        {hasMultiple && (
+          <>
+            <IconButton
+              onClick={goToPrevious}
+              aria-label="Previous image"
+              sx={{
+                position: "absolute",
+                left: 8,
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#fff",
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.6)",
+                },
+              }}
+            >
+              <ChevronLeftIcon />
+            </IconButton>
+            <IconButton
+              onClick={goToNext}
+              aria-label="Next image"
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#fff",
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.6)",
+                },
+              }}
+            >
+              <ChevronRightIcon />
+            </IconButton>
+          </>
+        )}
+      </Box>
+
+      {/* Expanded Image Dialog */}
+      <Dialog
+        open={dialogOpen}
+        onClose={handleCloseDialog}
+        maxWidth={false}
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: "transparent",
+              boxShadow: "none",
+              maxWidth: "90vw",
+              maxHeight: "90vh",
+            },
+          },
+          backdrop: {
+            sx: {
+              backgroundColor: "rgba(0, 0, 0, 0.9)",
+            },
+          },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          {/* Close button */}
           <IconButton
-            onClick={goToPrevious}
-            aria-label="Previous image"
+            onClick={handleCloseDialog}
+            aria-label="Close dialog"
             sx={{
-              position: "absolute",
-              left: 8,
-              top: "50%",
-              transform: "translateY(-50%)",
+              alignSelf: "flex-end",
+              mb: 1,
               color: "#fff",
-              backgroundColor: "rgba(0, 0, 0, 0.4)",
               "&:hover": {
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
               },
             }}
           >
-            <ChevronLeftIcon />
+            <CloseIcon />
           </IconButton>
-          <IconButton
-            onClick={goToNext}
-            aria-label="Next image"
+
+          {/* Image container with arrows */}
+          <Box
             sx={{
-              position: "absolute",
-              right: 8,
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "#fff",
-              backgroundColor: "rgba(0, 0, 0, 0.4)",
-              "&:hover": {
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
-              },
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <ChevronRightIcon />
-          </IconButton>
-        </>
-      )}
-    </Box>
+            {/* Dialog Image */}
+            <Box
+              component="img"
+              src={images[currentIndex]}
+              alt={`${alt} - Image ${currentIndex + 1}`}
+              sx={{
+                maxWidth: "85vw",
+                maxHeight: "70vh",
+                objectFit: "contain",
+                borderRadius: 1,
+              }}
+            />
+
+            {/* Navigation arrows in dialog */}
+            {hasMultiple && (
+              <>
+                <IconButton
+                  onClick={goToPrevious}
+                  aria-label="Previous image"
+                  sx={{
+                    position: "absolute",
+                    left: { xs: 8, sm: 16 },
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    color: "#fff",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    "&:hover": {
+                      backgroundColor: "rgba(0, 0, 0, 0.7)",
+                    },
+                  }}
+                >
+                  <ChevronLeftIcon sx={{ fontSize: 32 }} />
+                </IconButton>
+                <IconButton
+                  onClick={goToNext}
+                  aria-label="Next image"
+                  sx={{
+                    position: "absolute",
+                    right: { xs: 8, sm: 16 },
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    color: "#fff",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    "&:hover": {
+                      backgroundColor: "rgba(0, 0, 0, 0.7)",
+                    },
+                  }}
+                >
+                  <ChevronRightIcon sx={{ fontSize: 32 }} />
+                </IconButton>
+              </>
+            )}
+          </Box>
+
+          {/* Caption */}
+          {currentCaption && (
+            <Typography
+              sx={{
+                fontFamily: "var(--font-family-primary)",
+                fontWeight: 400,
+                fontSize: { xs: "0.9rem", sm: "1rem" },
+                color: "#fff",
+                textAlign: "center",
+                mt: 2,
+                px: 2,
+              }}
+            >
+              {currentCaption}
+            </Typography>
+          )}
+
+          {/* Image counter */}
+          {hasMultiple && (
+            <Typography
+              sx={{
+                fontFamily: "var(--font-family-primary)",
+                fontWeight: 500,
+                fontSize: "0.85rem",
+                color: "rgba(255, 255, 255, 0.7)",
+                mt: 1,
+              }}
+            >
+              {currentIndex + 1} / {images.length}
+            </Typography>
+          )}
+        </Box>
+      </Dialog>
+    </>
   );
 }
 
 function FeaturedProject({ project, isFirst }) {
   const hasGithub = project.githubUrl && project.githubUrl.length > 0;
   const hasSite = project.siteUrl && project.siteUrl.length > 0;
-  const isWide = project.isWideImage;
 
   // isFirst: image on left, text on right
   // !isFirst: text on left, image on right
@@ -109,7 +270,6 @@ function FeaturedProject({ project, isFirst }) {
       <Box
         sx={{
           flex: { xs: "none", lg: 1 },
-          minWidth: { lg: isWide ? "300px" : "auto" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -228,7 +388,7 @@ function FeaturedProject({ project, isFirst }) {
       {/* Project Image(s) */}
       <Box
         sx={{
-          flex: { xs: "none", lg: isWide ? "0 1 60%" : "0 0 auto" },
+          flex: { xs: "none", lg: "0 0 auto" },
           minWidth: 0,
           display: "flex",
           justifyContent: {
@@ -243,6 +403,7 @@ function FeaturedProject({ project, isFirst }) {
         {project.images && project.images.length > 0 ? (
           <ImageCarousel
             images={project.images}
+            captions={project.captions}
             alt={project.name}
           />
         ) : (

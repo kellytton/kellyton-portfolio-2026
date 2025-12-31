@@ -25,7 +25,18 @@
         "/src/assets/projects/deftechlink/deftechlink-4.png",
         "/src/assets/projects/deftechlink/deftechlink-5.png",
         "/src/assets/projects/deftechlink/deftechlink-6.png",
-        "/src/assets/projects/deftechlink/deftechlink-7.png"
+        "/src/assets/projects/deftechlink/deftechlink-7.png",
+        "/src/assets/projects/deftechlink/deftechlink-8.png"
+      ],
+      "captions": [
+        "Opportunities page with detailed view modal for quick access to listing information.",
+        "Learning hub featuring organized resources and interactive navigation.",
+        "Dashboard with free trial banner and key platform metrics at a glance.",
+        "Group Opportunities tab showing active collaboration and member engagement.",
+        "Events page with filterable listings and intuitive calendar integration.",
+        "Rich text editor for article creation with formatting toolbar and live preview.",
+        "Landing page hero section designed to make a strong first impression.",
+        "Features section highlighting the platform's core capabilities."
       ],
       "siteUrl": "https://deftechlink.com",
       "isWideImage": true
@@ -41,6 +52,10 @@
       "images": [
         "/src/assets/projects/tic-tac-poke/gamescreen.png",
         "/src/assets/projects/tic-tac-poke/mainmenu.png"
+      ],
+      "captions": [
+        "Game screen with Pokémon-themed gameplay",
+        "Main menu with character selection"
       ],
       "siteUrl": "",
       "isWideImage": false
@@ -58,6 +73,12 @@
         "/src/assets/projects/sunnyside-weather/sunnyside-forecast-dark.png",
         "/src/assets/projects/sunnyside-weather/sunnyside-home-dark.png",
         "/src/assets/projects/sunnyside-weather/sunnyside-home-light.png"
+      ],
+      "captions": [
+        "Daily forecast view in light mode",
+        "Daily forecast view in dark mode",
+        "Home screen in dark mode",
+        "Home screen in light mode"
       ],
       "siteUrl": "",
       "isWideImage": true
