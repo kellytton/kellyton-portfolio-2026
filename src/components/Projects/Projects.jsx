@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Box, Typography, IconButton, Dialog } from "@mui/material";
+import { Box, Typography, IconButton, Dialog, Fade } from "@mui/material";
+import { useInView } from "react-intersection-observer";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
@@ -248,24 +249,27 @@ function ImageCarousel({ images, captions = [], alt }) {
   );
 }
 
-function FeaturedProject({ project, isFirst }) {
+function FeaturedProject({ project, isFirst, index }) {
   const hasGithub = project.githubUrl && project.githubUrl.length > 0;
   const hasSite = project.siteUrl && project.siteUrl.length > 0;
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   // isFirst: image on left, text on right
   // !isFirst: text on left, image on right
   const imageOnLeft = isFirst;
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: { xs: "column", lg: "row" },
-        gap: { xs: 3, lg: 4 },
-        mb: { xs: 8, md: 10, lg: 12 },
-        alignItems: { xs: "stretch", lg: "center" },
-      }}
-    >
+    <Fade in={inView} timeout={600} style={{ transitionDelay: `${index * 100}ms` }}>
+      <Box
+        ref={ref}
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", lg: "row" },
+          gap: { xs: 3, lg: 4 },
+          mb: { xs: 8, md: 10, lg: 12 },
+          alignItems: { xs: "stretch", lg: "center" },
+        }}
+      >
       {/* Text Content */}
       <Box
         sx={{
@@ -423,26 +427,30 @@ function FeaturedProject({ project, isFirst }) {
           />
         )}
       </Box>
-    </Box>
+      </Box>
+    </Fade>
   );
 }
 
-function AdditionalProject({ project }) {
+function AdditionalProject({ project, index }) {
   const hasGithub = project.githubUrl && project.githubUrl.length > 0;
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <Box
-      sx={{
-        border: "1px solid",
-        borderColor: "rgba(51, 51, 51, 0.3)",
-        borderRadius: 1,
-        p: { xs: 2.5, sm: 3 },
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "var(--color-background)",
-      }}
-    >
+    <Fade in={inView} timeout={600} style={{ transitionDelay: `${index * 100}ms` }}>
+      <Box
+        ref={ref}
+        sx={{
+          border: "1px solid",
+          borderColor: "rgba(51, 51, 51, 0.3)",
+          borderRadius: 1,
+          p: { xs: 2.5, sm: 3 },
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          backgroundColor: "var(--color-background)",
+        }}
+      >
       {/* Header with folder icon and github */}
       <Box
         sx={{
@@ -517,11 +525,15 @@ function AdditionalProject({ project }) {
       >
         {project.tools.join(" • ")}
       </Typography>
-    </Box>
+      </Box>
+    </Fade>
   );
 }
 
 function Projects() {
+  const { ref: titleRef, inView: titleInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  const { ref: moreTitleRef, inView: moreTitleInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+
   return (
     <Box
       id="projects"
@@ -532,19 +544,22 @@ function Projects() {
       }}
     >
       {/* Section Title */}
-      <Typography
-        variant="h2"
-        sx={{
-          fontFamily: "var(--font-family-primary)",
-          fontWeight: 800,
-          fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem", lg: "5.5rem" },
-          lineHeight: 1,
-          color: "var(--color-text)",
-          mb: { xs: 6, sm: 7, md: 8 },
-        }}
-      >
-        CRAFTED WORKS.
-      </Typography>
+      <Fade in={titleInView} timeout={600}>
+        <Typography
+          ref={titleRef}
+          variant="h2"
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 800,
+            fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem", lg: "5.5rem" },
+            lineHeight: 1,
+            color: "var(--color-text)",
+            mb: { xs: 6, sm: 7, md: 8 },
+          }}
+        >
+          CRAFTED WORKS.
+        </Typography>
+      </Fade>
 
       {/* Featured Projects */}
       <Box sx={{ mb: { xs: 10, md: 16 } }}>
@@ -552,25 +567,29 @@ function Projects() {
           <FeaturedProject
             key={project.name}
             project={project}
+            index={index}
             isFirst={index % 2 === 0}
           />
         ))}
       </Box>
 
       {/* More Projects Section */}
-      <Typography
-        variant="h3"
-        sx={{
-          fontFamily: "var(--font-family-primary)",
-          fontWeight: 700,
-          fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" },
-          color: "var(--color-text)",
-          textAlign: "center",
-          mb: { xs: 4, sm: 5, md: 6 },
-        }}
-      >
-        MORE PROJECTS
-      </Typography>
+      <Fade in={moreTitleInView} timeout={600}>
+        <Typography
+          ref={moreTitleRef}
+          variant="h3"
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 700,
+            fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" },
+            color: "var(--color-text)",
+            textAlign: "center",
+            mb: { xs: 4, sm: 5, md: 6 },
+          }}
+        >
+          MORE PROJECTS
+        </Typography>
+      </Fade>
 
       {/* Additional Projects Grid */}
       <Box
@@ -584,8 +603,8 @@ function Projects() {
           gap: { xs: 3, sm: 3, md: 4 },
         }}
       >
-        {additionalProjects.map((project) => (
-          <AdditionalProject key={project.name} project={project} />
+        {additionalProjects.map((project, index) => (
+          <AdditionalProject key={project.name} project={project} index={index} />
         ))}
       </Box>
     </Box>

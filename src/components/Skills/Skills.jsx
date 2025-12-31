@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Box, Typography, Collapse, IconButton } from "@mui/material";
+import { Box, Typography, Collapse, IconButton, Fade } from "@mui/material";
+import { useInView } from "react-intersection-observer";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
@@ -126,6 +127,8 @@ function SkillCategory({ category, skills, isOpen, onToggle, isLast }) {
 
 function Skills() {
   const [openIndexes, setOpenIndexes] = useState([0]);
+  const { ref: titleRef, inView: titleInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  const { ref: accordionRef, inView: accordionInView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const handleToggle = (index) => {
     setOpenIndexes((prev) =>
@@ -145,33 +148,38 @@ function Skills() {
       }}
     >
       {/* Section Title */}
-      <Typography
-        variant="h2"
-        sx={{
-          fontFamily: "var(--font-family-primary)",
-          fontWeight: 800,
-          fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem", lg: "5.5rem" },
-          lineHeight: 1,
-          color: "var(--color-text)",
-          mb: { xs: 4, sm: 5, md: 6 },
-        }}
-      >
-        MY SKILLS.
-      </Typography>
+      <Fade in={titleInView} timeout={600}>
+        <Typography
+          ref={titleRef}
+          variant="h2"
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 800,
+            fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem", lg: "5.5rem" },
+            lineHeight: 1,
+            color: "var(--color-text)",
+            mb: { xs: 4, sm: 5, md: 6 },
+          }}
+        >
+          MY SKILLS.
+        </Typography>
+      </Fade>
 
       {/* Skills Accordion */}
-      <Box>
-        {skillsData.map((item, index) => (
-          <SkillCategory
-            key={item.category}
-            category={item.category}
-            skills={item.skills}
-            isOpen={openIndexes.includes(index)}
-            onToggle={() => handleToggle(index)}
-            isLast={index === skillsData.length - 1}
-          />
-        ))}
-      </Box>
+      <Fade in={accordionInView} timeout={600}>
+        <Box ref={accordionRef}>
+          {skillsData.map((item, index) => (
+            <SkillCategory
+              key={item.category}
+              category={item.category}
+              skills={item.skills}
+              isOpen={openIndexes.includes(index)}
+              onToggle={() => handleToggle(index)}
+              isLast={index === skillsData.length - 1}
+            />
+          ))}
+        </Box>
+      </Fade>
     </Box>
   );
 }

@@ -1,4 +1,5 @@
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography, IconButton, Fade } from "@mui/material";
+import { useInView } from "react-intersection-observer";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import EmailIcon from "@mui/icons-material/Email";
@@ -23,6 +24,7 @@ const socialLinks = [
 
 function Footer() {
   const currentYear = new Date().getFullYear();
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
     <Box
@@ -35,15 +37,17 @@ function Footer() {
         borderTopColor: "rgba(51, 51, 51, 0.3)",
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 3,
-        }}
-      >
+      <Fade in={inView} timeout={600}>
+        <Box
+          ref={ref}
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 3,
+          }}
+        >
         {/* Left side - Name/Brand */}
         <Box sx={{ textAlign: { xs: "center", sm: "left" } }}>
           <Typography
@@ -112,7 +116,8 @@ function Footer() {
         >
           © {currentYear} Kelly Ton
         </Typography>
-      </Box>
+        </Box>
+      </Fade>
     </Box>
   );
 }

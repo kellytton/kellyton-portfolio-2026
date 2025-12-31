@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Fade } from "@mui/material";
+import { useInView } from "react-intersection-observer";
 import SchoolIcon from "@mui/icons-material/School";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import aboutImage1 from "../../assets/about/about-1.png";
@@ -34,17 +35,20 @@ const timelineData = [
   },
 ];
 
-function TimelineItem({ item, isLast }) {
+function TimelineItem({ item, isLast, index }) {
   const isWork = item.type === "work";
   const Icon = isWork ? WorkOutlineIcon : SchoolIcon;
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        gap: { xs: 2, sm: 3 },
-      }}
-    >
+    <Fade in={inView} timeout={600} style={{ transitionDelay: `${index * 150}ms` }}>
+      <Box
+        ref={ref}
+        sx={{
+          display: "flex",
+          gap: { xs: 2, sm: 3 },
+        }}
+      >
       {/* Timeline line and dot */}
       <Box
         sx={{
@@ -151,11 +155,17 @@ function TimelineItem({ item, isLast }) {
           {item.description}
         </Typography>
       </Box>
-    </Box>
+      </Box>
+    </Fade>
   );
 }
 
 function About() {
+  const { ref: titleRef, inView: titleInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  const { ref: row1Ref, inView: row1InView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  const { ref: row2Ref, inView: row2InView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  const { ref: timelineTitleRef, inView: timelineTitleInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+
   return (
     <Box
       id="about"
@@ -166,29 +176,34 @@ function About() {
       }}
     >
       {/* Section Title */}
-      <Typography
-        variant="h2"
-        sx={{
-          fontFamily: "var(--font-family-primary)",
-          fontWeight: 800,
-          fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem", lg: "5.5rem" },
-          lineHeight: 1,
-          color: "var(--color-text)",
-          mb: { xs: 6, sm: 7, md: 8 },
-        }}
-      >
-        ABOUT ME.
-      </Typography>
+      <Fade in={titleInView} timeout={600}>
+        <Typography
+          ref={titleRef}
+          variant="h2"
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 800,
+            fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem", lg: "5.5rem" },
+            lineHeight: 1,
+            color: "var(--color-text)",
+            mb: { xs: 6, sm: 7, md: 8 },
+          }}
+        >
+          ABOUT ME.
+        </Typography>
+      </Fade>
 
       {/* First Row - Image left, Text right */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          alignItems: { xs: "stretch", md: "stretch" },
-          mb: { xs: 6, sm: 6, md: 0 },
-        }}
-      >
+      <Fade in={row1InView} timeout={600}>
+        <Box
+          ref={row1Ref}
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: { xs: "stretch", md: "stretch" },
+            mb: { xs: 6, sm: 6, md: 0 },
+          }}
+        >
         <Box
           sx={{
             width: { xs: "100%", md: "40%" },
@@ -250,7 +265,8 @@ function About() {
             have a seamless experience from start to finish.
           </Typography>
         </Box>
-      </Box>
+        </Box>
+      </Fade>
 
       {/* Horizontal divider between rows - hidden on mobile */}
       <Box
@@ -263,13 +279,15 @@ function About() {
       />
 
       {/* Second Row - Text left, Image right */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column-reverse", md: "row" },
-          alignItems: { xs: "stretch", md: "stretch" },
-        }}
-      >
+      <Fade in={row2InView} timeout={600}>
+        <Box
+          ref={row2Ref}
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column-reverse", md: "row" },
+            alignItems: { xs: "stretch", md: "stretch" },
+          }}
+        >
         <Box
           sx={{
             flex: 1,
@@ -330,7 +348,8 @@ function About() {
             }}
           />
         </Box>
-      </Box>
+        </Box>
+      </Fade>
 
       {/* Timeline Section */}
       <Box
@@ -338,24 +357,28 @@ function About() {
           mt: { xs: 8, sm: 10, md: 12 },
         }}
       >
-        <Typography
-          variant="h3"
-          sx={{
-            fontFamily: "var(--font-family-primary)",
-            fontWeight: 700,
-            fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" },
-            color: "var(--color-text)",
-            mb: { xs: 4, sm: 5, md: 6 },
-          }}
-        >
-          Experience & Education
-        </Typography>
+        <Fade in={timelineTitleInView} timeout={600}>
+          <Typography
+            ref={timelineTitleRef}
+            variant="h3"
+            sx={{
+              fontFamily: "var(--font-family-primary)",
+              fontWeight: 700,
+              fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" },
+              color: "var(--color-text)",
+              mb: { xs: 4, sm: 5, md: 6 },
+            }}
+          >
+            Experience & Education
+          </Typography>
+        </Fade>
 
         <Box>
           {timelineData.map((item, index) => (
             <TimelineItem
               key={`${item.type}-${item.organization}`}
               item={item}
+              index={index}
               isLast={index === timelineData.length - 1}
             />
           ))}
