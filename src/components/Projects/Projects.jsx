@@ -35,6 +35,8 @@ function FeaturedProject({ project, imageOnLeft }) {
       <Box
         sx={{
           order: { xs: 0, md: imageOnLeft ? 0 : 1 },
+          display: "flex",
+          justifyContent: { xs: "center", md: imageOnLeft ? "flex-start" : "flex-end" },
         }}
       >
         <Box
@@ -65,7 +67,12 @@ function FeaturedProject({ project, imageOnLeft }) {
           sx={{
             fontFamily: "var(--font-family-primary)",
             fontWeight: 700,
-            fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem", lg: "2.25rem" },
+            fontSize: {
+              xs: "1.5rem",
+              sm: "1.75rem",
+              md: "2rem",
+              lg: "2.25rem",
+            },
             color: "var(--color-text)",
             mb: 2,
           }}
@@ -76,7 +83,12 @@ function FeaturedProject({ project, imageOnLeft }) {
           sx={{
             fontFamily: "var(--font-family-primary)",
             fontWeight: 400,
-            fontSize: { xs: "0.9rem", sm: "0.95rem", md: "1rem", lg: "1.05rem" },
+            fontSize: {
+              xs: "0.9rem",
+              sm: "0.95rem",
+              md: "1rem",
+              lg: "1.05rem",
+            },
             lineHeight: 1.7,
             color: "var(--color-text)",
             mb: 3,
@@ -230,11 +242,11 @@ function Projects() {
           mb: { xs: 6, sm: 7, md: 8 },
         }}
       >
-        CRAFTED WORKS.
+        MY PORTFOLIO.
       </Typography>
 
       {/* Featured Projects */}
-      <Box sx={{ mb: { xs: 8, md: 12 } }}>
+      <Box sx={{ mb: { xs: 10, md: 16 } }}>
         {featuredProjects.map((project, index) => (
           <FeaturedProject
             key={project.name}

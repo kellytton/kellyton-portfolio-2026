@@ -26,7 +26,7 @@ function SocialSidebar() {
     <Box
       sx={{
         position: "fixed",
-        left: { xs: 16, md: 32, lg: 48 },
+        left: { xs: 16, lg: 48 },
         top: "50%",
         bottom: 0,
         display: { xs: "none", sm: "flex" },

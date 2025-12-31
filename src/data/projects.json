@@ -15,7 +15,7 @@
       "name": "SUNNYSIDE WEATHER",
       "description": "SunnySide is a desktop weather app that pairs daily forecasts with food-inspired recommendations based on current conditions. It supports saved locations, real-time updates, and a polished light and dark interface.",
       "tools": ["ReactJS", "Electron.js", "Vite", "HTML/CSS", "Figma"],
-      "githubUrl": "",
+      "githubUrl": "https://github.com/kellytton/sunnyside-weather-app",
       "imageUrl": "/src/assets/projects/sunnyside-weather.png",
       "siteUrl": "",
       "isWideImage": true
