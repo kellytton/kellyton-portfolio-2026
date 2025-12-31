@@ -17,16 +17,16 @@
         "Figma"
       ],
       "githubUrl": "",
-      "imageUrl": "/src/assets/projects/deftechlink/deftechlink.png",
+      "imageUrl": "/assets/projects/deftechlink/deftechlink.png",
       "images": [
-        "/src/assets/projects/deftechlink/deftechlink-1.png",
-        "/src/assets/projects/deftechlink/deftechlink-2.png",
-        "/src/assets/projects/deftechlink/deftechlink-3.png",
-        "/src/assets/projects/deftechlink/deftechlink-4.png",
-        "/src/assets/projects/deftechlink/deftechlink-5.png",
-        "/src/assets/projects/deftechlink/deftechlink-6.png",
-        "/src/assets/projects/deftechlink/deftechlink-7.png",
-        "/src/assets/projects/deftechlink/deftechlink-8.png"
+        "/assets/projects/deftechlink/deftechlink-1.png",
+        "/assets/projects/deftechlink/deftechlink-2.png",
+        "/assets/projects/deftechlink/deftechlink-3.png",
+        "/assets/projects/deftechlink/deftechlink-4.png",
+        "/assets/projects/deftechlink/deftechlink-5.png",
+        "/assets/projects/deftechlink/deftechlink-6.png",
+        "/assets/projects/deftechlink/deftechlink-7.png",
+        "/assets/projects/deftechlink/deftechlink-8.png"
       ],
       "captions": [
         "Opportunities page with detailed view modal for quick access to listing information.",
@@ -47,10 +47,10 @@
       "description": "Tic-Tac-Poké is a Pokémon-themed twist on classic Tic-Tac-Toe designed as a polished desktop game. It features smooth gameplay, playful visuals, win and draw detection, and an intuitive restart flow for repeat play.",
       "tools": ["ReactJS", "Electron.js", "Vite", "HTML/CSS", "Figma"],
       "githubUrl": "https://github.com/kellytton/tic-tac-poke",
-      "imageUrl": "/src/assets/projects/tic-tac-poke/tic-tac-poke.png",
+      "imageUrl": "/assets/projects/tic-tac-poke/tic-tac-poke.png",
       "images": [
-        "/src/assets/projects/tic-tac-poke/gamescreen.png",
-        "/src/assets/projects/tic-tac-poke/mainmenu.png"
+        "/assets/projects/tic-tac-poke/gamescreen.png",
+        "/assets/projects/tic-tac-poke/mainmenu.png"
       ],
       "captions": [
         "Game screen with Pokémon-themed gameplay",
@@ -65,12 +65,12 @@
       "description": "SunnySide is a desktop weather app that pairs daily forecasts with food-inspired recommendations based on current conditions. It supports saved locations, real-time updates, and a polished light and dark interface.",
       "tools": ["ReactJS", "Electron.js", "Vite", "HTML/CSS", "Figma"],
       "githubUrl": "https://github.com/kellytton/sunnyside-weather-app",
-      "imageUrl": "/src/assets/projects/sunnyside-weather/sunnyside-weather.png",
+      "imageUrl": "/assets/projects/sunnyside-weather/sunnyside-weather.png",
       "images": [
-        "/src/assets/projects/sunnyside-weather/sunnyside-weather.png",
-        "/src/assets/projects/sunnyside-weather/sunnyside-forecast-dark.png",
-        "/src/assets/projects/sunnyside-weather/sunnyside-home-dark.png",
-        "/src/assets/projects/sunnyside-weather/sunnyside-home-light.png"
+        "/assets/projects/sunnyside-weather/sunnyside-weather.png",
+        "/assets/projects/sunnyside-weather/sunnyside-forecast-dark.png",
+        "/assets/projects/sunnyside-weather/sunnyside-home-dark.png",
+        "/assets/projects/sunnyside-weather/sunnyside-home-light.png"
       ],
       "captions": [
         "Daily forecast view in light mode",
