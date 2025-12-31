@@ -1,7 +1,7 @@
-export { default as Navbar } from "./Navbar";
-export { default as Hero } from "./Hero";
-export { default as SocialSidebar } from "./SocialSidebar";
-export { default as About } from "./About";
-export { default as Skills } from "./Skills";
-export { default as Projects } from "./Projects";
-export { default as Footer } from "./Footer";
+export { default as Navbar } from "./navbar";
+export { default as Hero } from "./hero";
+export { default as SocialSidebar } from "./socialsidebar";
+export { default as About } from "./about";
+export { default as Skills } from "./skills";
+export { default as Projects } from "./projects";
+export { default as Footer } from "./footer";

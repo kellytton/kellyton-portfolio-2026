@@ -97,6 +97,15 @@
     },
     {
       "featured": false,
+      "name": "Kaylen Ton's Portfolio",
+      "description": "A personal portfolio website built from a provided design, refined for better usability and brought to life with a responsive, modern frontend.",
+      "tools": ["ReactJS", "HTML/CSS/JavaScript", "MUI"],
+      "githubUrl": "https://github.com/kellytton/kaylenton-portfolio",
+      "imageUrl": "",
+      "siteUrl": ""
+    },
+    {
+      "featured": false,
       "name": "EduPortal",
       "description": "A secure academic management system supporting role-based access, GPA analysis, enrollment tracking, and institutional data integrity.",
       "tools": [
