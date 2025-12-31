@@ -6,60 +6,34 @@ import projectsData from "../../data/projects.json";
 const featuredProjects = projectsData.projects.filter((p) => p.featured);
 const additionalProjects = projectsData.projects.filter((p) => !p.featured);
 
-function FeaturedProject({ project, imageOnLeft }) {
+function FeaturedProject({ project, isFirst }) {
   const hasGithub = project.githubUrl && project.githubUrl.length > 0;
   const hasSite = project.siteUrl && project.siteUrl.length > 0;
   const isWide = project.isWideImage;
 
-  // Image takes 4/12 if not wide, 8/12 if wide
-  // Text takes the remaining space
-  const imageWidth = isWide ? "66.666%" : "33.333%";
-  const textWidth = isWide ? "33.333%" : "66.666%";
+  // isFirst: image on left, text on right
+  // !isFirst: text on left, image on right
+  const imageOnLeft = isFirst;
 
   return (
     <Box
       sx={{
-        display: "grid",
-        gridTemplateColumns: {
-          xs: "1fr",
-          md: imageOnLeft
-            ? `${imageWidth} ${textWidth}`
-            : `${textWidth} ${imageWidth}`,
-        },
-        gap: { xs: 3, md: 4, lg: 5 },
-        mb: { xs: 6, md: 8, lg: 10 },
-        alignItems: "center",
+        display: "flex",
+        flexDirection: { xs: "column", lg: "row" },
+        gap: { xs: 3, lg: 4 },
+        mb: { xs: 8, md: 10, lg: 12 },
+        alignItems: { xs: "stretch", lg: "center" },
       }}
     >
-      {/* Project Image */}
+      {/* Text Content */}
       <Box
         sx={{
-          order: { xs: 0, md: imageOnLeft ? 0 : 1 },
-          display: "flex",
-          justifyContent: { xs: "center", md: imageOnLeft ? "flex-start" : "flex-end" },
-        }}
-      >
-        <Box
-          component="img"
-          src={project.imageUrl}
-          alt={project.name}
-          sx={{
-            width: "100%",
-            height: "auto",
-            maxHeight: { xs: "300px", sm: "350px", md: "400px" },
-            objectFit: "contain",
-            borderRadius: 1,
-          }}
-        />
-      </Box>
-
-      {/* Project Info */}
-      <Box
-        sx={{
-          order: { xs: 1, md: imageOnLeft ? 1 : 0 },
+          flex: { xs: "none", lg: 1 },
+          minWidth: { lg: isWide ? "300px" : "auto" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          order: { xs: 1, lg: imageOnLeft ? 1 : 0 },
         }}
       >
         <Typography
@@ -67,14 +41,10 @@ function FeaturedProject({ project, imageOnLeft }) {
           sx={{
             fontFamily: "var(--font-family-primary)",
             fontWeight: 700,
-            fontSize: {
-              xs: "1.5rem",
-              sm: "1.75rem",
-              md: "2rem",
-              lg: "2.25rem",
-            },
+            fontSize: { xs: "1.5rem", sm: "1.75rem", md: "1.875rem", lg: "2rem" },
             color: "var(--color-text)",
-            mb: 2,
+            mb: { xs: 2, md: 2.5 },
+            letterSpacing: "0.01em",
           }}
         >
           {project.name}
@@ -83,15 +53,10 @@ function FeaturedProject({ project, imageOnLeft }) {
           sx={{
             fontFamily: "var(--font-family-primary)",
             fontWeight: 400,
-            fontSize: {
-              xs: "0.9rem",
-              sm: "0.95rem",
-              md: "1rem",
-              lg: "1.05rem",
-            },
-            lineHeight: 1.7,
+            fontSize: { xs: "0.9rem", sm: "0.95rem", md: "1rem" },
+            lineHeight: 1.75,
             color: "var(--color-text)",
-            mb: 3,
+            mb: { xs: 2.5, md: 3 },
           }}
         >
           {project.description}
@@ -102,25 +67,61 @@ function FeaturedProject({ project, imageOnLeft }) {
             fontWeight: 600,
             fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" },
             color: "#73513F",
+            letterSpacing: "0.01em",
           }}
         >
           {project.tools.join(" • ")}
         </Typography>
         {(hasGithub || hasSite) && (
-          <Box sx={{ display: "flex", gap: 1, mt: 2 }}>
+          <Box sx={{ display: "flex", gap: 1, mt: 2.5, ml: -1 }}>
             {hasGithub && (
               <IconButton
                 component="a"
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ color: "var(--color-text)" }}
+                aria-label="View on GitHub"
+                sx={{
+                  color: "var(--color-text)",
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                    opacity: 0.7,
+                  },
+                }}
               >
-                <GitHubIcon />
+                <GitHubIcon sx={{ fontSize: 24 }} />
               </IconButton>
             )}
           </Box>
         )}
+      </Box>
+
+      {/* Project Image */}
+      <Box
+        sx={{
+          flex: { xs: "none", lg: isWide ? "0 1 60%" : "0 0 auto" },
+          minWidth: 0,
+          display: "flex",
+          justifyContent: {
+            xs: "flex-start",
+            lg: imageOnLeft ? "flex-start" : "flex-end"
+          },
+          order: { xs: 0, lg: imageOnLeft ? 0 : 1 },
+        }}
+      >
+        <Box
+          component="img"
+          src={project.imageUrl}
+          alt={project.name}
+          sx={{
+            width: "auto",
+            maxWidth: "100%",
+            height: "auto",
+            maxHeight: { lg: "400px" },
+            objectFit: "contain",
+            borderRadius: 1,
+          }}
+        />
       </Box>
     </Box>
   );
@@ -242,7 +243,7 @@ function Projects() {
           mb: { xs: 6, sm: 7, md: 8 },
         }}
       >
-        MY PORTFOLIO.
+        CRAFTED WORKS.
       </Typography>
 
       {/* Featured Projects */}
@@ -251,7 +252,7 @@ function Projects() {
           <FeaturedProject
             key={project.name}
             project={project}
-            imageOnLeft={index % 2 === 0}
+            isFirst={index % 2 === 0}
           />
         ))}
       </Box>
