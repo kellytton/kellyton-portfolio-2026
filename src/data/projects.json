@@ -102,7 +102,7 @@
       "tools": ["ReactJS", "HTML/CSS/JavaScript", "MUI"],
       "githubUrl": "https://github.com/kellytton/kaylenton-portfolio",
       "imageUrl": "",
-      "siteUrl": ""
+      "siteUrl": "https://kaylenton.netlify.app/"
     },
     {
       "featured": false,

@@ -434,6 +434,7 @@ function FeaturedProject({ project, isFirst, index }) {
 
 function AdditionalProject({ project, index }) {
   const hasGithub = project.githubUrl && project.githubUrl.length > 0;
+  const hasSite = project.siteUrl && project.siteUrl.length > 0;
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
@@ -466,21 +467,38 @@ function AdditionalProject({ project, index }) {
             color: "var(--color-text)",
           }}
         />
-        {hasGithub && (
-          <IconButton
-            component="a"
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{
-              color: "var(--color-text)",
-              p: 0.5,
-              "&:hover": { opacity: 0.7 },
-            }}
-          >
-            <GitHubIcon sx={{ fontSize: 22 }} />
-          </IconButton>
-        )}
+        <Box sx={{ display: "flex", gap: 0.5 }}>
+          {hasGithub && (
+            <IconButton
+              component="a"
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                color: "var(--color-text)",
+                p: 0.5,
+                "&:hover": { opacity: 0.7 },
+              }}
+            >
+              <GitHubIcon sx={{ fontSize: 22 }} />
+            </IconButton>
+          )}
+          {hasSite && (
+            <IconButton
+              component="a"
+              href={project.siteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                color: "var(--color-text)",
+                p: 0.5,
+                "&:hover": { opacity: 0.7 },
+              }}
+            >
+              <LaunchIcon sx={{ fontSize: 22 }} />
+            </IconButton>
+          )}
+        </Box>
       </Box>
 
       {/* Project Name */}
