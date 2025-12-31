@@ -33,6 +33,8 @@ function FeaturedProject({ project, isFirst }) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          alignItems: { xs: "center", lg: "flex-start" },
+          textAlign: { xs: "center", lg: "left" },
           order: { xs: 1, lg: imageOnLeft ? 1 : 0 },
         }}
       >
@@ -103,7 +105,7 @@ function FeaturedProject({ project, isFirst }) {
           minWidth: 0,
           display: "flex",
           justifyContent: {
-            xs: "flex-start",
+            xs: "center",
             lg: imageOnLeft ? "flex-start" : "flex-end"
           },
           order: { xs: 0, lg: imageOnLeft ? 0 : 1 },
@@ -115,7 +117,7 @@ function FeaturedProject({ project, isFirst }) {
           alt={project.name}
           sx={{
             width: "auto",
-            maxWidth: "100%",
+            maxWidth: { xs: "100%", sm: isWide ? "80%" : "320px", md: isWide ? "70%" : "360px", lg: "100%" },
             height: "auto",
             maxHeight: { lg: "400px" },
             objectFit: "contain",

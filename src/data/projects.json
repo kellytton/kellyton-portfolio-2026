@@ -2,6 +2,24 @@
   "projects": [
     {
       "featured": true,
+      "name": "DEFTECHLINK",
+      "description": "DEFTECHLINK is a secure platform connecting defense innovation opportunities with industry, academia, and government partners. I contributed to building the frontend, integrating RESTful APIs, implementing authentication flows, and ensuring a responsive, accessible, and polished user interface.",
+      "tools": [
+        "ReactJS",
+        "MUI",
+        "Flask",
+        "REST APIs",
+        "Auth0",
+        "PostgreSQL",
+        "Figma"
+      ],
+      "githubUrl": "",
+      "imageUrl": "/src/assets/projects/deftechlink.png",
+      "siteUrl": "https://deftechlink.com",
+      "isWideImage": true
+    },
+    {
+      "featured": true,
       "name": "TIC-TAC-POKÉ",
       "description": "Tic-Tac-Poké is a Pokémon-themed twist on classic Tic-Tac-Toe designed as a polished desktop game. It features smooth gameplay, playful visuals, win and draw detection, and an intuitive restart flow for repeat play.",
       "tools": ["ReactJS", "Electron.js", "Vite", "HTML/CSS", "Figma"],
