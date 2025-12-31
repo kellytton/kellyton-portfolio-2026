@@ -1,6 +1,159 @@
 import { Box, Typography } from "@mui/material";
+import SchoolIcon from "@mui/icons-material/School";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import aboutImage1 from "../../assets/about/about-1.png";
 import aboutImage2 from "../../assets/about/about-2.png";
+
+const timelineData = [
+  {
+    type: "work",
+    title: "Lead Web Developer & UI/UX Engineer",
+    organization: "DefTechLink",
+    startDate: "May 2025",
+    endDate: "Present",
+    description:
+      "Leading UI/UX design and frontend development with React and Material UI. Building scalable component systems, integrating Stripe payments, and collaborating in Agile sprints.",
+  },
+  {
+    type: "work",
+    title: "Software & Data Engineer Intern",
+    organization: "SMX",
+    startDate: "June 2024",
+    endDate: "Aug 2024",
+    description:
+      "Built NLP sentiment analysis pipelines using spaCy and Hugging Face models in AWS. Presented data-driven insights to senior executives including the CEO.",
+  },
+  {
+    type: "education",
+    title: "B.S. in Computer Science",
+    organization: "University of South Florida",
+    startDate: "Aug 2021",
+    endDate: "May 2025",
+    description:
+      "Focused on software engineering, data structures, database design, and UI/UX design.",
+  },
+];
+
+function TimelineItem({ item, isLast }) {
+  const isWork = item.type === "work";
+  const Icon = isWork ? WorkOutlineIcon : SchoolIcon;
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        gap: { xs: 2, sm: 3 },
+      }}
+    >
+      {/* Timeline line and dot */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          minWidth: { xs: 32, sm: 40 },
+        }}
+      >
+        {/* Icon circle */}
+        <Box
+          sx={{
+            width: { xs: 32, sm: 40 },
+            height: { xs: 32, sm: 40 },
+            borderRadius: "50%",
+            backgroundColor: "var(--color-text)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <Icon
+            sx={{
+              fontSize: { xs: 16, sm: 20 },
+              color: "var(--color-background)",
+            }}
+          />
+        </Box>
+        {/* Connecting line */}
+        {!isLast && (
+          <Box
+            sx={{
+              width: "2px",
+              flex: 1,
+              backgroundColor: "var(--color-text)",
+              opacity: 0.3,
+              mt: 1,
+            }}
+          />
+        )}
+      </Box>
+
+      {/* Content */}
+      <Box
+        sx={{
+          flex: 1,
+          pb: isLast ? 0 : { xs: 4, sm: 5 },
+        }}
+      >
+        {/* Date */}
+        <Typography
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 600,
+            fontSize: { xs: "0.75rem", sm: "0.8rem" },
+            color: "#73513F",
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
+            mb: 0.5,
+          }}
+        >
+          {item.startDate} — {item.endDate}
+        </Typography>
+
+        {/* Title */}
+        <Typography
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 700,
+            fontSize: { xs: "1rem", sm: "1.1rem", md: "1.15rem" },
+            color: "var(--color-text)",
+            mb: 0.25,
+          }}
+        >
+          {item.title}
+        </Typography>
+
+        {/* Organization */}
+        <Typography
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 500,
+            fontSize: { xs: "0.9rem", sm: "0.95rem" },
+            color: "var(--color-text)",
+            opacity: 0.8,
+            mb: 1,
+          }}
+        >
+          {item.organization}
+        </Typography>
+
+        {/* Description */}
+        <Typography
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 400,
+            fontSize: { xs: "0.85rem", sm: "0.9rem" },
+            lineHeight: 1.6,
+            color: "var(--color-text)",
+            opacity: 0.75,
+          }}
+        >
+          {item.description}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
 
 function About() {
   return (
@@ -79,7 +232,12 @@ function About() {
             sx={{
               fontFamily: "var(--font-family-primary)",
               fontWeight: 600,
-              fontSize: { xs: "0.95rem", sm: "1rem", md: "0.95rem", lg: "1.1rem" },
+              fontSize: {
+                xs: "0.95rem",
+                sm: "1rem",
+                md: "0.95rem",
+                lg: "1.1rem",
+              },
               lineHeight: 1.8,
               color: "var(--color-text)",
             }}
@@ -125,7 +283,12 @@ function About() {
             sx={{
               fontFamily: "var(--font-family-primary)",
               fontWeight: 600,
-              fontSize: { xs: "0.95rem", sm: "1rem", md: "0.95rem", lg: "1.1rem" },
+              fontSize: {
+                xs: "0.95rem",
+                sm: "1rem",
+                md: "0.95rem",
+                lg: "1.1rem",
+              },
               lineHeight: 1.8,
               color: "var(--color-text)",
             }}
@@ -166,6 +329,36 @@ function About() {
               objectFit: "cover",
             }}
           />
+        </Box>
+      </Box>
+
+      {/* Timeline Section */}
+      <Box
+        sx={{
+          mt: { xs: 8, sm: 10, md: 12 },
+        }}
+      >
+        <Typography
+          variant="h3"
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 700,
+            fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" },
+            color: "var(--color-text)",
+            mb: { xs: 4, sm: 5, md: 6 },
+          }}
+        >
+          Experience & Education
+        </Typography>
+
+        <Box>
+          {timelineData.map((item, index) => (
+            <TimelineItem
+              key={`${item.type}-${item.organization}`}
+              item={item}
+              isLast={index === timelineData.length - 1}
+            />
+          ))}
         </Box>
       </Box>
     </Box>
