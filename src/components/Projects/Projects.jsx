@@ -1,10 +1,90 @@
+import { useState } from "react";
 import { Box, Typography, IconButton } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import LaunchIcon from "@mui/icons-material/Launch";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import projectsData from "../../data/projects.json";
 
 const featuredProjects = projectsData.projects.filter((p) => p.featured);
 const additionalProjects = projectsData.projects.filter((p) => !p.featured);
+
+function ImageCarousel({ images, alt }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const hasMultiple = images.length > 1;
+
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <Box
+      sx={{
+        position: "relative",
+      }}
+    >
+      <Box
+        component="img"
+        src={images[currentIndex]}
+        alt={`${alt} - Image ${currentIndex + 1}`}
+        sx={{
+          width: "auto",
+          maxWidth: "100%",
+          height: "auto",
+          maxHeight: "400px",
+          objectFit: "contain",
+          borderRadius: 1,
+          display: "block",
+          transition: "all 0.3s ease",
+        }}
+      />
+      {hasMultiple && (
+        <>
+          <IconButton
+            onClick={goToPrevious}
+            aria-label="Previous image"
+            sx={{
+              position: "absolute",
+              left: 8,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "#fff",
+              backgroundColor: "rgba(0, 0, 0, 0.4)",
+              "&:hover": {
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+              },
+            }}
+          >
+            <ChevronLeftIcon />
+          </IconButton>
+          <IconButton
+            onClick={goToNext}
+            aria-label="Next image"
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "#fff",
+              backgroundColor: "rgba(0, 0, 0, 0.4)",
+              "&:hover": {
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+              },
+            }}
+          >
+            <ChevronRightIcon />
+          </IconButton>
+        </>
+      )}
+    </Box>
+  );
+}
 
 function FeaturedProject({ project, isFirst }) {
   const hasGithub = project.githubUrl && project.githubUrl.length > 0;
@@ -38,6 +118,35 @@ function FeaturedProject({ project, isFirst }) {
           order: { xs: 1, lg: imageOnLeft ? 1 : 0 },
         }}
       >
+        {project.type === "professional" && (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 0.75,
+              mb: 1,
+            }}
+          >
+            <WorkOutlineIcon
+              sx={{
+                fontSize: { xs: 14, sm: 16 },
+                color: "#73513F",
+              }}
+            />
+            <Typography
+              sx={{
+                fontFamily: "var(--font-family-primary)",
+                fontWeight: 600,
+                fontSize: { xs: "0.7rem", sm: "0.75rem" },
+                color: "#73513F",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+              }}
+            >
+              Professional Work
+            </Typography>
+          </Box>
+        )}
         <Typography
           variant="h3"
           sx={{
@@ -94,11 +203,29 @@ function FeaturedProject({ project, isFirst }) {
                 <GitHubIcon sx={{ fontSize: 24 }} />
               </IconButton>
             )}
+            {hasSite && (
+              <IconButton
+                component="a"
+                href={project.siteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View live site"
+                sx={{
+                  color: "var(--color-text)",
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                    opacity: 0.7,
+                  },
+                }}
+              >
+                <LaunchIcon sx={{ fontSize: 24 }} />
+              </IconButton>
+            )}
           </Box>
         )}
       </Box>
 
-      {/* Project Image */}
+      {/* Project Image(s) */}
       <Box
         sx={{
           flex: { xs: "none", lg: isWide ? "0 1 60%" : "0 0 auto" },
@@ -108,22 +235,32 @@ function FeaturedProject({ project, isFirst }) {
             xs: "center",
             lg: imageOnLeft ? "flex-start" : "flex-end"
           },
+          alignItems: "center",
           order: { xs: 0, lg: imageOnLeft ? 0 : 1 },
+          transition: "all 0.3s ease",
         }}
       >
-        <Box
-          component="img"
-          src={project.imageUrl}
-          alt={project.name}
-          sx={{
-            width: "auto",
-            maxWidth: { xs: "100%", sm: isWide ? "80%" : "320px", md: isWide ? "70%" : "360px", lg: "100%" },
-            height: "auto",
-            maxHeight: { lg: "400px" },
-            objectFit: "contain",
-            borderRadius: 1,
-          }}
-        />
+        {project.images && project.images.length > 0 ? (
+          <ImageCarousel
+            images={project.images}
+            alt={project.name}
+          />
+        ) : (
+          <Box
+            component="img"
+            src={project.imageUrl}
+            alt={project.name}
+            sx={{
+              width: "auto",
+              maxWidth: "100%",
+              height: "auto",
+              maxHeight: "400px",
+              objectFit: "contain",
+              borderRadius: 1,
+              transition: "all 0.3s ease",
+            }}
+          />
+        )}
       </Box>
     </Box>
   );

@@ -2,39 +2,63 @@
   "projects": [
     {
       "featured": true,
+      "type": "professional",
       "name": "DEFTECHLINK",
-      "description": "DEFTECHLINK is a secure platform connecting defense innovation opportunities with industry, academia, and government partners. I contributed to building the frontend, integrating RESTful APIs, implementing authentication flows, and ensuring a responsive, accessible, and polished user interface.",
+      "description": "DEFTECHLINK is a startup platform connecting defense innovation opportunities with industry, academia, and government partners. I built the entire frontend from scratch, integrating RESTful APIs, implementing authentication flows, setting up Stripe payments for onboarding, and ensuring a responsive, accessible, and polished user interface.",
       "tools": [
         "ReactJS",
         "MUI",
         "Flask",
         "REST APIs",
         "Auth0",
+        "Stripe",
         "PostgreSQL",
+        "TipTap",
         "Figma"
       ],
       "githubUrl": "",
-      "imageUrl": "/src/assets/projects/deftechlink.png",
+      "imageUrl": "/src/assets/projects/deftechlink/deftechlink.png",
+      "images": [
+        "/src/assets/projects/deftechlink/deftechlink-1.png",
+        "/src/assets/projects/deftechlink/deftechlink-2.png",
+        "/src/assets/projects/deftechlink/deftechlink-3.png",
+        "/src/assets/projects/deftechlink/deftechlink-4.png",
+        "/src/assets/projects/deftechlink/deftechlink-5.png",
+        "/src/assets/projects/deftechlink/deftechlink-6.png",
+        "/src/assets/projects/deftechlink/deftechlink-7.png"
+      ],
       "siteUrl": "https://deftechlink.com",
       "isWideImage": true
     },
     {
       "featured": true,
+      "type": "personal",
       "name": "TIC-TAC-POKÉ",
       "description": "Tic-Tac-Poké is a Pokémon-themed twist on classic Tic-Tac-Toe designed as a polished desktop game. It features smooth gameplay, playful visuals, win and draw detection, and an intuitive restart flow for repeat play.",
       "tools": ["ReactJS", "Electron.js", "Vite", "HTML/CSS", "Figma"],
       "githubUrl": "https://github.com/kellytton/tic-tac-poke",
-      "imageUrl": "/src/assets/projects/tic-tac-poke.png",
+      "imageUrl": "/src/assets/projects/tic-tac-poke/tic-tac-poke.png",
+      "images": [
+        "/src/assets/projects/tic-tac-poke/gamescreen.png",
+        "/src/assets/projects/tic-tac-poke/mainmenu.png"
+      ],
       "siteUrl": "",
       "isWideImage": false
     },
     {
       "featured": true,
+      "type": "personal",
       "name": "SUNNYSIDE WEATHER",
       "description": "SunnySide is a desktop weather app that pairs daily forecasts with food-inspired recommendations based on current conditions. It supports saved locations, real-time updates, and a polished light and dark interface.",
       "tools": ["ReactJS", "Electron.js", "Vite", "HTML/CSS", "Figma"],
       "githubUrl": "https://github.com/kellytton/sunnyside-weather-app",
-      "imageUrl": "/src/assets/projects/sunnyside-weather.png",
+      "imageUrl": "/src/assets/projects/sunnyside-weather/sunnyside-weather.png",
+      "images": [
+        "/src/assets/projects/sunnyside-weather/sunnyside-weather.png",
+        "/src/assets/projects/sunnyside-weather/sunnyside-forecast-dark.png",
+        "/src/assets/projects/sunnyside-weather/sunnyside-home-dark.png",
+        "/src/assets/projects/sunnyside-weather/sunnyside-home-light.png"
+      ],
       "siteUrl": "",
       "isWideImage": true
     },
