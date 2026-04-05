@@ -82,6 +82,25 @@
     },
     {
       "featured": false,
+      "name": "Cashmere Finance Tracker",
+      "description": "A personal finance tracker with a dark glassmorphism aesthetic, supporting CSV imports, reimbursement linking, and multi-month analytics with interactive charts.",
+      "tools": [
+        "Next.js",
+        "React",
+        "Tailwind CSS",
+        "Prisma",
+        "PostgreSQL",
+        "Neon",
+        "Vercel",
+        "Recharts",
+        "Framer Motion"
+      ],
+      "githubUrl": "",
+      "imageUrl": "",
+      "siteUrl": ""
+    },
+    {
+      "featured": false,
       "name": "Sentiment Analyzer",
       "description": "A sentiment analysis tool that classifies political social media posts and visualizes sentiment trends through geospatial mapping.",
       "tools": [
