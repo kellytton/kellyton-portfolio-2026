@@ -7,7 +7,17 @@ import RemoveIcon from "@mui/icons-material/Remove";
 const skillsData = [
   {
     category: "FRONTEND DEVELOPMENT",
-    skills: ["React.js", "HTML", "CSS", "JavaScript", "Bootstrap", "Material UI", "TipTap", "Electron.js"],
+    skills: [
+      "React.js",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Bootstrap",
+      "Material UI",
+      "TipTap",
+      "Electron.js",
+      "TanStack Query",
+    ],
   },
   {
     category: "BACKEND DEVELOPMENT",
@@ -23,7 +33,15 @@ const skillsData = [
   },
   {
     category: "TOOLS & PLATFORMS",
-    skills: ["Git", "GitHub", "GitLab", "Figma", "AWS WorkSpaces", "Linux", "macOS"],
+    skills: [
+      "Git",
+      "GitHub",
+      "GitLab",
+      "Figma",
+      "AWS WorkSpaces",
+      "Linux",
+      "macOS",
+    ],
   },
   {
     category: "METHODOLOGIES",
@@ -56,7 +74,12 @@ function SkillCategory({ category, skills, isOpen, onToggle, isLast }) {
           sx={{
             fontFamily: "var(--font-family-primary)",
             fontWeight: 700,
-            fontSize: { xs: "1rem", sm: "1.15rem", md: "1.25rem", lg: "1.4rem" },
+            fontSize: {
+              xs: "1rem",
+              sm: "1.15rem",
+              md: "1.25rem",
+              lg: "1.4rem",
+            },
             color: "var(--color-text)",
             letterSpacing: "0.02em",
           }}
@@ -127,14 +150,18 @@ function SkillCategory({ category, skills, isOpen, onToggle, isLast }) {
 
 function Skills() {
   const [openIndexes, setOpenIndexes] = useState([0]);
-  const { ref: titleRef, inView: titleInView } = useInView({ triggerOnce: true, threshold: 0.2 });
-  const { ref: accordionRef, inView: accordionInView } = useInView({ triggerOnce: true, threshold: 0.1 });
+  const { ref: titleRef, inView: titleInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+  const { ref: accordionRef, inView: accordionInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
 
   const handleToggle = (index) => {
     setOpenIndexes((prev) =>
-      prev.includes(index)
-        ? prev.filter((i) => i !== index)
-        : [...prev, index]
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
     );
   };
 
@@ -155,7 +182,12 @@ function Skills() {
           sx={{
             fontFamily: "var(--font-family-primary)",
             fontWeight: 800,
-            fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem", lg: "5.5rem" },
+            fontSize: {
+              xs: "2.5rem",
+              sm: "3.5rem",
+              md: "4.5rem",
+              lg: "5.5rem",
+            },
             lineHeight: 1,
             color: "var(--color-text)",
             mb: { xs: 4, sm: 5, md: 6 },

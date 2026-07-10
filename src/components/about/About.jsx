@@ -11,7 +11,7 @@ const timelineData = [
     title: "Lead Full Stack Developer & UI/UX Designer",
     organization: "DefTechLink",
     startDate: "May 2025",
-    endDate: "Present",
+    endDate: "July 2026",
     description:
       "Leading full stack development and UI/UX design using React and Material UI. Building scalable component systems, integrating Flask APIs, and implementing dynamic, data-driven features. Collaborating in Agile sprints to deliver user-focused solutions.",
   },
@@ -278,13 +278,16 @@ function About() {
                 color: "var(--color-text)",
               }}
             >
-              Hi, I'm Kelly Ton. I'm currently working as the Lead Full Stack
-              Developer & UI/UX Designer at DefTechLink, and I recently
-              graduated from the University of South Florida with a Bachelor of
-              Science in Computer Science. I love taking ideas from concept to
-              reality—designing intuitive interfaces, building features that
-              just work, and making sure users have a seamless experience from
-              start to finish.
+              Hi, I'm Kelly Ton. I'm a software engineer with a background in
+              full-stack development and UI/UX design. I graduated from the
+              University of South Florida with a Bachelor of Science in Computer
+              Science in May 2025. I enjoy taking ideas from concept to reality,
+              designing intuitive interfaces, building scalable features, and
+              creating seamless experiences across the frontend and backend. My
+              experience includes developing with React, Flask, PostgreSQL, and
+              Figma, where I combine technical problem-solving with thoughtful
+              design to build products that are both functional and enjoyable to
+              use.
             </Typography>
           </Box>
         </Box>
@@ -333,12 +336,13 @@ function About() {
                 color: "var(--color-text)",
               }}
             >
-              I'm passionate about crafting products that feel thoughtful,
-              polished, and fun to use. I thrive in collaborative environments,
-              enjoy brainstorming solutions with teammates, and constantly look
-              for ways to learn and improve. When I'm not coding, I'm usually
-              traveling, trying new foods, hiking, or playing music on my
-              kalimba.
+              I'm passionate about creating software that feels polished,
+              intuitive, and impactful. I thrive in collaborative environments,
+              enjoy brainstorming solutions with teammates, and am always
+              looking for opportunities to learn, grow, and contribute to
+              meaningful products. Outside of coding, you'll usually find me
+              traveling, trying new foods, hiking, opening Pokémon packs, or
+              playing music on my kalimba.
             </Typography>
           </Box>
           {/* Vertical divider */}
