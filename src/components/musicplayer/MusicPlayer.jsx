@@ -219,7 +219,7 @@ const MusicPlayer = () => {
                 mb: 1,
               }}
             >
-              Lofi Dreams
+              Lofi Dreams — ᨳଓ .
             </Typography>
 
             <Box sx={{ display: "flex", alignItems: "center", gap: 1.25 }}>
