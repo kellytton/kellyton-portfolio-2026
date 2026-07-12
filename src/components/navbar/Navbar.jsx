@@ -31,9 +31,11 @@ function Navbar() {
   return (
     <>
       <AppBar
-        position="static"
+        position="sticky"
         elevation={0}
         sx={{
+          top: 0,
+          zIndex: 1100,
           backgroundColor: "var(--color-background)",
           color: "var(--color-text)",
         }}
@@ -52,7 +54,13 @@ function Navbar() {
           </IconButton>
 
           {/* Desktop navigation */}
-          <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center", gap: 4 }}>
+          <Box
+            sx={{
+              display: { xs: "none", sm: "flex" },
+              alignItems: "center",
+              gap: 4,
+            }}
+          >
             {navItems.map((item) => (
               <Button
                 key={item.label}
@@ -72,6 +80,7 @@ function Navbar() {
                 {item.label}
               </Button>
             ))}
+
             <Button
               variant="outlined"
               component="a"
@@ -114,10 +123,14 @@ function Navbar() {
       >
         <Box sx={{ p: 2 }}>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <IconButton onClick={handleDrawerToggle} sx={{ color: "var(--color-text)" }}>
+            <IconButton
+              onClick={handleDrawerToggle}
+              sx={{ color: "var(--color-text)" }}
+            >
               <CloseIcon />
             </IconButton>
           </Box>
+
           <List sx={{ mt: 4 }}>
             {navItems.map((item) => (
               <ListItem key={item.label} disablePadding>
@@ -139,6 +152,7 @@ function Navbar() {
                 </ListItemButton>
               </ListItem>
             ))}
+
             <ListItem disablePadding sx={{ mt: 2 }}>
               <Button
                 variant="outlined"
