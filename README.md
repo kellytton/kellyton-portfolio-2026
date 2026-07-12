@@ -1,16 +1,26 @@
-# React + Vite
+# Kelly Ton | Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Hi! 👋
 
-Currently, two official plugins are available:
+I'm Kelly, a software engineer who enjoys turning ideas into polished, user-friendly software.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This repository contains the source code for my personal portfolio, where I showcase my projects, technical skills, and experiences as a developer. As someone who enjoys both software engineering and UI/UX design, I wanted to create a portfolio that not only highlights my work but also reflects my design philosophy: clean layouts, modern aesthetics, and seamless user experiences.
 
-## React Compiler
+Every section was thoughtfully designed and developed by me using React and Material UI, with the goal of creating a website that's both visually engaging and intuitive to navigate.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Thanks for stopping by. I hope you enjoy exploring my work!
 
-## Expanding the ESLint configuration
+## Technologies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- Material UI
+- JavaScript
+- HTML/CSS
+
+## Running Locally
+
+```bash
+npm install
+npm run dev
+```
