@@ -9,6 +9,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CloseIcon from "@mui/icons-material/Close";
 import projectsData from "../../data/projects.json";
+import { usePageReady } from "../../context/PageReadyContext";
 
 const featuredProjects = projectsData.projects.filter((p) => p.featured);
 const additionalProjects = projectsData.projects.filter((p) => !p.featured);
@@ -250,6 +251,7 @@ function ImageCarousel({ images, captions = [], alt }) {
 }
 
 function FeaturedProject({ project, isFirst, index }) {
+  const pageReady = usePageReady();
   const hasGithub = project.githubUrl && project.githubUrl.length > 0;
   const hasSite = project.siteUrl && project.siteUrl.length > 0;
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -259,7 +261,11 @@ function FeaturedProject({ project, isFirst, index }) {
   const imageOnLeft = isFirst;
 
   return (
-    <Fade in={inView} timeout={600} style={{ transitionDelay: `${index * 100}ms` }}>
+    <Fade
+      in={inView}
+      timeout={600}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
       <Box
         ref={ref}
         sx={{
@@ -270,175 +276,185 @@ function FeaturedProject({ project, isFirst, index }) {
           alignItems: { xs: "stretch", lg: "center" },
         }}
       >
-      {/* Text Content */}
-      <Box
-        sx={{
-          flex: { xs: "none", lg: 1 },
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: { xs: "center", lg: "flex-start" },
-          textAlign: { xs: "center", lg: "left" },
-          order: { xs: 1, lg: imageOnLeft ? 1 : 0 },
-        }}
-      >
-        {project.type === "professional" && (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 0.75,
-              mb: 1,
-            }}
-          >
-            <WorkOutlineIcon
+        {/* Text Content */}
+        <Box
+          sx={{
+            flex: { xs: "none", lg: 1 },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: { xs: "center", lg: "flex-start" },
+            textAlign: { xs: "center", lg: "left" },
+            order: { xs: 1, lg: imageOnLeft ? 1 : 0 },
+          }}
+        >
+          {project.type === "professional" && (
+            <Box
               sx={{
-                fontSize: { xs: 14, sm: 16 },
-                color: "#73513F",
-              }}
-            />
-            <Typography
-              sx={{
-                fontFamily: "var(--font-family-primary)",
-                fontWeight: 600,
-                fontSize: { xs: "0.7rem", sm: "0.75rem" },
-                color: "#73513F",
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
+                display: "flex",
+                alignItems: "center",
+                gap: 0.75,
+                mb: 1,
               }}
             >
-              Professional Work
-            </Typography>
-          </Box>
-        )}
-        <Typography
-          variant="h3"
-          sx={{
-            fontFamily: "var(--font-family-primary)",
-            fontWeight: 700,
-            fontSize: { xs: "1.5rem", sm: "1.75rem", md: "1.875rem", lg: "2rem" },
-            color: "var(--color-text)",
-            mb: { xs: 2, md: 2.5 },
-            letterSpacing: "0.01em",
-          }}
-        >
-          {project.name}
-        </Typography>
-        <Typography
-          sx={{
-            fontFamily: "var(--font-family-primary)",
-            fontWeight: 400,
-            fontSize: { xs: "0.9rem", sm: "0.95rem", md: "1rem" },
-            lineHeight: 1.75,
-            color: "var(--color-text)",
-            mb: { xs: 2.5, md: 3 },
-          }}
-        >
-          {project.description}
-        </Typography>
-        <Typography
-          sx={{
-            fontFamily: "var(--font-family-primary)",
-            fontWeight: 600,
-            fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" },
-            color: "#73513F",
-            letterSpacing: "0.01em",
-          }}
-        >
-          {project.tools.join(" • ")}
-        </Typography>
-        {(hasGithub || hasSite) && (
-          <Box sx={{ display: "flex", gap: 1, mt: 2.5, ml: -1 }}>
-            {hasGithub && (
-              <IconButton
-                component="a"
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View on GitHub"
+              <WorkOutlineIcon
                 sx={{
-                  color: "var(--color-text)",
-                  "&:hover": {
-                    backgroundColor: "transparent",
-                    opacity: 0.7,
-                  },
+                  fontSize: { xs: 14, sm: 16 },
+                  color: "#73513F",
+                }}
+              />
+              <Typography
+                sx={{
+                  fontFamily: "var(--font-family-primary)",
+                  fontWeight: 600,
+                  fontSize: { xs: "0.7rem", sm: "0.75rem" },
+                  color: "#73513F",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
                 }}
               >
-                <GitHubIcon sx={{ fontSize: 24 }} />
-              </IconButton>
-            )}
-            {hasSite && (
-              <IconButton
-                component="a"
-                href={project.siteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View live site"
-                sx={{
-                  color: "var(--color-text)",
-                  "&:hover": {
-                    backgroundColor: "transparent",
-                    opacity: 0.7,
-                  },
-                }}
-              >
-                <LaunchIcon sx={{ fontSize: 24 }} />
-              </IconButton>
-            )}
-          </Box>
-        )}
-      </Box>
-
-      {/* Project Image(s) */}
-      <Box
-        sx={{
-          flex: { xs: "none", lg: "0 0 auto" },
-          minWidth: 0,
-          display: "flex",
-          justifyContent: {
-            xs: "center",
-            lg: imageOnLeft ? "flex-start" : "flex-end"
-          },
-          alignItems: "center",
-          order: { xs: 0, lg: imageOnLeft ? 0 : 1 },
-          transition: "all 0.3s ease",
-        }}
-      >
-        {project.images && project.images.length > 0 ? (
-          <ImageCarousel
-            images={project.images}
-            captions={project.captions}
-            alt={project.name}
-          />
-        ) : (
-          <Box
-            component="img"
-            src={project.imageUrl}
-            alt={project.name}
+                Professional Work
+              </Typography>
+            </Box>
+          )}
+          <Typography
+            variant="h3"
             sx={{
-              width: "auto",
-              maxWidth: "100%",
-              height: "auto",
-              maxHeight: "400px",
-              objectFit: "contain",
-              borderRadius: 1,
-              transition: "all 0.3s ease",
+              fontFamily: "var(--font-family-primary)",
+              fontWeight: 700,
+              fontSize: {
+                xs: "1.5rem",
+                sm: "1.75rem",
+                md: "1.875rem",
+                lg: "2rem",
+              },
+              color: "var(--color-text)",
+              mb: { xs: 2, md: 2.5 },
+              letterSpacing: "0.01em",
             }}
-          />
-        )}
-      </Box>
+          >
+            {project.name}
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "var(--font-family-primary)",
+              fontWeight: 400,
+              fontSize: { xs: "0.9rem", sm: "0.95rem", md: "1rem" },
+              lineHeight: 1.75,
+              color: "var(--color-text)",
+              mb: { xs: 2.5, md: 3 },
+            }}
+          >
+            {project.description}
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "var(--font-family-primary)",
+              fontWeight: 600,
+              fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" },
+              color: "#73513F",
+              letterSpacing: "0.01em",
+            }}
+          >
+            {project.tools.join(" • ")}
+          </Typography>
+          {(hasGithub || hasSite) && (
+            <Box sx={{ display: "flex", gap: 1, mt: 2.5, ml: -1 }}>
+              {hasGithub && (
+                <IconButton
+                  component="a"
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View on GitHub"
+                  sx={{
+                    color: "var(--color-text)",
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                      opacity: 0.7,
+                    },
+                  }}
+                >
+                  <GitHubIcon sx={{ fontSize: 24 }} />
+                </IconButton>
+              )}
+              {hasSite && (
+                <IconButton
+                  component="a"
+                  href={project.siteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View live site"
+                  sx={{
+                    color: "var(--color-text)",
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                      opacity: 0.7,
+                    },
+                  }}
+                >
+                  <LaunchIcon sx={{ fontSize: 24 }} />
+                </IconButton>
+              )}
+            </Box>
+          )}
+        </Box>
+
+        {/* Project Image(s) */}
+        <Box
+          sx={{
+            flex: { xs: "none", lg: "0 0 auto" },
+            minWidth: 0,
+            display: "flex",
+            justifyContent: {
+              xs: "center",
+              lg: imageOnLeft ? "flex-start" : "flex-end",
+            },
+            alignItems: "center",
+            order: { xs: 0, lg: imageOnLeft ? 0 : 1 },
+            transition: "all 0.3s ease",
+          }}
+        >
+          {project.images && project.images.length > 0 ? (
+            <ImageCarousel
+              images={project.images}
+              captions={project.captions}
+              alt={project.name}
+            />
+          ) : (
+            <Box
+              component="img"
+              src={project.imageUrl}
+              alt={project.name}
+              sx={{
+                width: "auto",
+                maxWidth: "100%",
+                height: "auto",
+                maxHeight: "400px",
+                objectFit: "contain",
+                borderRadius: 1,
+                transition: "all 0.3s ease",
+              }}
+            />
+          )}
+        </Box>
       </Box>
     </Fade>
   );
 }
 
 function AdditionalProject({ project, index }) {
+  const pageReady = usePageReady();
   const hasGithub = project.githubUrl && project.githubUrl.length > 0;
   const hasSite = project.siteUrl && project.siteUrl.length > 0;
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <Fade in={inView} timeout={600} style={{ transitionDelay: `${index * 100}ms` }}>
+    <Fade
+      in={inView}
+      timeout={600}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
       <Box
         ref={ref}
         sx={{
@@ -452,105 +468,112 @@ function AdditionalProject({ project, index }) {
           backgroundColor: "var(--color-background)",
         }}
       >
-      {/* Header with folder icon and github */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          mb: 2,
-        }}
-      >
-        <FolderOpenIcon
+        {/* Header with folder icon and github */}
+        <Box
           sx={{
-            fontSize: { xs: 36, md: 40 },
-            color: "var(--color-text)",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            mb: 2,
           }}
-        />
-        <Box sx={{ display: "flex", gap: 0.5 }}>
-          {hasGithub && (
-            <IconButton
-              component="a"
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{
-                color: "var(--color-text)",
-                p: 0.5,
-                "&:hover": { opacity: 0.7 },
-              }}
-            >
-              <GitHubIcon sx={{ fontSize: 22 }} />
-            </IconButton>
-          )}
-          {hasSite && (
-            <IconButton
-              component="a"
-              href={project.siteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{
-                color: "var(--color-text)",
-                p: 0.5,
-                "&:hover": { opacity: 0.7 },
-              }}
-            >
-              <LaunchIcon sx={{ fontSize: 22 }} />
-            </IconButton>
-          )}
+        >
+          <FolderOpenIcon
+            sx={{
+              fontSize: { xs: 36, md: 40 },
+              color: "var(--color-text)",
+            }}
+          />
+          <Box sx={{ display: "flex", gap: 0.5 }}>
+            {hasGithub && (
+              <IconButton
+                component="a"
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: "var(--color-text)",
+                  p: 0.5,
+                  "&:hover": { opacity: 0.7 },
+                }}
+              >
+                <GitHubIcon sx={{ fontSize: 22 }} />
+              </IconButton>
+            )}
+            {hasSite && (
+              <IconButton
+                component="a"
+                href={project.siteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: "var(--color-text)",
+                  p: 0.5,
+                  "&:hover": { opacity: 0.7 },
+                }}
+              >
+                <LaunchIcon sx={{ fontSize: 22 }} />
+              </IconButton>
+            )}
+          </Box>
         </Box>
-      </Box>
 
-      {/* Project Name */}
-      <Typography
-        variant="h4"
-        sx={{
-          fontFamily: "var(--font-family-primary)",
-          fontWeight: 700,
-          fontSize: { xs: "1.1rem", sm: "1.2rem", md: "1.25rem" },
-          color: "var(--color-text)",
-          mb: 1.5,
-        }}
-      >
-        {project.name}
-      </Typography>
+        {/* Project Name */}
+        <Typography
+          variant="h4"
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 700,
+            fontSize: { xs: "1.1rem", sm: "1.2rem", md: "1.25rem" },
+            color: "var(--color-text)",
+            mb: 1.5,
+          }}
+        >
+          {project.name}
+        </Typography>
 
-      {/* Description */}
-      <Typography
-        sx={{
-          fontFamily: "var(--font-family-primary)",
-          fontWeight: 400,
-          fontSize: { xs: "0.85rem", sm: "0.9rem" },
-          lineHeight: 1.6,
-          color: "var(--color-text)",
-          opacity: 0.85,
-          flex: 1,
-          mb: 2,
-        }}
-      >
-        {project.description}
-      </Typography>
+        {/* Description */}
+        <Typography
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 400,
+            fontSize: { xs: "0.85rem", sm: "0.9rem" },
+            lineHeight: 1.6,
+            color: "var(--color-text)",
+            opacity: 0.85,
+            flex: 1,
+            mb: 2,
+          }}
+        >
+          {project.description}
+        </Typography>
 
-      {/* Tools */}
-      <Typography
-        sx={{
-          fontFamily: "var(--font-family-primary)",
-          fontWeight: 600,
-          fontSize: { xs: "0.8rem", sm: "0.85rem" },
-          color: "#73513F",
-          mt: "auto",
-        }}
-      >
-        {project.tools.join(" • ")}
-      </Typography>
+        {/* Tools */}
+        <Typography
+          sx={{
+            fontFamily: "var(--font-family-primary)",
+            fontWeight: 600,
+            fontSize: { xs: "0.8rem", sm: "0.85rem" },
+            color: "#73513F",
+            mt: "auto",
+          }}
+        >
+          {project.tools.join(" • ")}
+        </Typography>
       </Box>
     </Fade>
   );
 }
 
 function Projects() {
-  const { ref: titleRef, inView: titleInView } = useInView({ triggerOnce: true, threshold: 0.2 });
-  const { ref: moreTitleRef, inView: moreTitleInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  const pageReady = usePageReady();
+  const { ref: titleRef, inView: titleInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+  const { ref: moreTitleRef, inView: moreTitleInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
 
   return (
     <Box
@@ -562,14 +585,19 @@ function Projects() {
       }}
     >
       {/* Section Title */}
-      <Fade in={titleInView} timeout={600}>
+      <Fade in={pageReady && titleInView} timeout={600}>
         <Typography
           ref={titleRef}
           variant="h2"
           sx={{
             fontFamily: "var(--font-family-primary)",
             fontWeight: 800,
-            fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem", lg: "5.5rem" },
+            fontSize: {
+              xs: "2.5rem",
+              sm: "3.5rem",
+              md: "4.5rem",
+              lg: "5.5rem",
+            },
             lineHeight: 1,
             color: "var(--color-text)",
             mb: { xs: 6, sm: 7, md: 8 },
@@ -592,7 +620,7 @@ function Projects() {
       </Box>
 
       {/* More Projects Section */}
-      <Fade in={moreTitleInView} timeout={600}>
+      <Fade in={pageReady && moreTitleInView} timeout={600}>
         <Typography
           ref={moreTitleRef}
           variant="h3"
@@ -622,7 +650,11 @@ function Projects() {
         }}
       >
         {additionalProjects.map((project, index) => (
-          <AdditionalProject key={project.name} project={project} index={index} />
+          <AdditionalProject
+            key={project.name}
+            project={project}
+            index={index}
+          />
         ))}
       </Box>
     </Box>

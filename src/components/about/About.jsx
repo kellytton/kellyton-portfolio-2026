@@ -2,8 +2,9 @@ import { Box, Typography, Fade } from "@mui/material";
 import { useInView } from "react-intersection-observer";
 import SchoolIcon from "@mui/icons-material/School";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
-import aboutImage1 from "../../assets/about/about-1.png";
-import aboutImage2 from "../../assets/about/about-2.png";
+import aboutImage1 from "../../assets/about/about-1.webp";
+import aboutImage2 from "../../assets/about/about-2.webp";
+import { usePageReady } from "../../context/PageReadyContext";
 
 const timelineData = [
   {
@@ -36,13 +37,14 @@ const timelineData = [
 ];
 
 function TimelineItem({ item, isLast, index }) {
+  const pageReady = usePageReady();
   const isWork = item.type === "work";
   const Icon = isWork ? WorkOutlineIcon : SchoolIcon;
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
     <Fade
-      in={inView}
+      in={pageReady && inView}
       timeout={600}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
@@ -165,6 +167,7 @@ function TimelineItem({ item, isLast, index }) {
 }
 
 function About() {
+  const pageReady = usePageReady();
   const { ref: titleRef, inView: titleInView } = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -192,7 +195,7 @@ function About() {
       }}
     >
       {/* Section Title */}
-      <Fade in={titleInView} timeout={600}>
+      <Fade in={pageReady && titleInView} timeout={600}>
         <Typography
           ref={titleRef}
           variant="h2"
@@ -215,7 +218,7 @@ function About() {
       </Fade>
 
       {/* First Row - Image left, Text right */}
-      <Fade in={row1InView} timeout={600}>
+      <Fade in={pageReady && row1InView} timeout={600}>
         <Box
           ref={row1Ref}
           sx={{
@@ -239,6 +242,10 @@ function About() {
               component="img"
               src={aboutImage1}
               alt="Kelly at graduation"
+              width="724"
+              height="358"
+              loading="lazy"
+              decoding="async"
               sx={{
                 width: "100%",
                 height: { xs: "280px", sm: "320px", md: "200px", lg: "240px" },
@@ -304,7 +311,7 @@ function About() {
       />
 
       {/* Second Row - Text left, Image right */}
-      <Fade in={row2InView} timeout={600}>
+      <Fade in={pageReady && row2InView} timeout={600}>
         <Box
           ref={row2Ref}
           sx={{
@@ -368,6 +375,10 @@ function About() {
               component="img"
               src={aboutImage2}
               alt="Orchids in garden"
+              width="1050"
+              height="358"
+              loading="lazy"
+              decoding="async"
               sx={{
                 width: "100%",
                 height: { xs: "280px", sm: "320px", md: "200px", lg: "240px" },
@@ -384,7 +395,7 @@ function About() {
           mt: { xs: 8, sm: 10, md: 12 },
         }}
       >
-        <Fade in={timelineTitleInView} timeout={600}>
+        <Fade in={pageReady && timelineTitleInView} timeout={600}>
           <Typography
             ref={timelineTitleRef}
             variant="h3"

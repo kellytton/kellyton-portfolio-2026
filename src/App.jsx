@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import {
+  Preloader,
   Navbar,
   Hero,
   SocialSidebar,
@@ -9,6 +11,7 @@ import {
   Footer,
   MusicPlayer,
 } from "./components";
+import { PageReadyProvider } from "./context/PageReadyContext";
 
 const theme = createTheme({
   components: {
@@ -23,19 +26,26 @@ const theme = createTheme({
 });
 
 function App() {
+  const [pageReady, setPageReady] = useState(false);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ minHeight: "100vh" }}>
-        <Navbar />
-        <SocialSidebar />
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Footer />
-        <MusicPlayer />
-      </Box>
+
+      <PageReadyProvider value={pageReady}>
+        <Preloader onComplete={() => setPageReady(true)} />
+
+        <Box sx={{ minHeight: "100vh" }}>
+          <Navbar />
+          <SocialSidebar />
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Footer />
+          <MusicPlayer />
+        </Box>
+      </PageReadyProvider>
     </ThemeProvider>
   );
 }

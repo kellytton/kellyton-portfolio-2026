@@ -2,16 +2,22 @@ import { Box, Typography, IconButton, Fade, Slide } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import EmailIcon from "@mui/icons-material/Email";
-import heroImage1 from "../../assets/hero/hero-1.jpg";
-import heroImage2 from "../../assets/hero/hero-2.jpg";
+import heroImage1 from "../../assets/hero/hero-1.webp";
+import heroImage2 from "../../assets/hero/hero-2.webp";
+import { usePageReady } from "../../context/PageReadyContext";
 
 const socialLinks = [
-  { icon: LinkedInIcon, href: "https://www.linkedin.com/in/kellytton/", label: "LinkedIn" },
+  {
+    icon: LinkedInIcon,
+    href: "https://www.linkedin.com/in/kellytton/",
+    label: "LinkedIn",
+  },
   { icon: GitHubIcon, href: "https://github.com/kellytton", label: "GitHub" },
   { icon: EmailIcon, href: "mailto:kthton@gmail.com", label: "Email" },
 ];
 
 function Hero() {
+  const pageReady = usePageReady();
   return (
     <Box
       component="section"
@@ -34,7 +40,7 @@ function Hero() {
         }}
       >
         {/* Text content */}
-        <Fade in timeout={800}>
+        <Fade in={pageReady} timeout={800}>
           <Box
             sx={{
               position: { xs: "relative", lg: "absolute" },
@@ -85,7 +91,7 @@ function Hero() {
         </Fade>
 
         {/* Images */}
-        <Slide direction="left" in timeout={800}>
+        <Slide direction="left" in={pageReady} timeout={800}>
           <Box
             sx={{
               position: { xs: "relative", lg: "absolute" },
@@ -102,6 +108,10 @@ function Hero() {
               component="img"
               src={heroImage1}
               alt="Kelly in library"
+              width="840"
+              height="630"
+              loading="eager"
+              decoding="async"
               sx={{
                 width: {
                   xs: "50vw",
@@ -126,6 +136,10 @@ function Hero() {
               component="img"
               src={heroImage2}
               alt="Food photography"
+              width="840"
+              height="630"
+              loading="eager"
+              decoding="async"
               sx={{
                 width: {
                   xs: "50vw",

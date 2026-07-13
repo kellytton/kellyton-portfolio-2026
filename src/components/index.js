@@ -1,3 +1,4 @@
+export { default as Preloader } from "./preloader/Preloader";
 export { default as Navbar } from "./navbar";
 export { default as Hero } from "./hero";
 export { default as SocialSidebar } from "./socialsidebar";
