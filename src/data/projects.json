@@ -19,14 +19,14 @@
       "githubUrl": "",
       "imageUrl": "/assets/projects/deftechlink/deftechlink.png",
       "images": [
-        "/assets/projects/deftechlink/deftechlink-1.png",
-        "/assets/projects/deftechlink/deftechlink-2.png",
-        "/assets/projects/deftechlink/deftechlink-3.png",
-        "/assets/projects/deftechlink/deftechlink-4.png",
-        "/assets/projects/deftechlink/deftechlink-5.png",
-        "/assets/projects/deftechlink/deftechlink-6.png",
-        "/assets/projects/deftechlink/deftechlink-7.png",
-        "/assets/projects/deftechlink/deftechlink-8.png"
+        "/assets/projects/deftechlink/deftechlink-1.webp",
+        "/assets/projects/deftechlink/deftechlink-2.webp",
+        "/assets/projects/deftechlink/deftechlink-3.webp",
+        "/assets/projects/deftechlink/deftechlink-4.webp",
+        "/assets/projects/deftechlink/deftechlink-5.webp",
+        "/assets/projects/deftechlink/deftechlink-6.webp",
+        "/assets/projects/deftechlink/deftechlink-7.webp",
+        "/assets/projects/deftechlink/deftechlink-8.webp"
       ],
       "captions": [
         "Opportunities page with detailed view modal for quick access to listing information.",
@@ -49,8 +49,8 @@
       "githubUrl": "https://github.com/kellytton/tic-tac-poke",
       "imageUrl": "/assets/projects/tic-tac-poke/tic-tac-poke.png",
       "images": [
-        "/assets/projects/tic-tac-poke/gamescreen.png",
-        "/assets/projects/tic-tac-poke/mainmenu.png"
+        "/assets/projects/tic-tac-poke/gamescreen.webp",
+        "/assets/projects/tic-tac-poke/mainmenu.webp"
       ],
       "captions": [
         "Game screen with Pokémon-themed gameplay",
@@ -67,10 +67,10 @@
       "githubUrl": "https://github.com/kellytton/sunnyside-weather-app",
       "imageUrl": "/assets/projects/sunnyside-weather/sunnyside-weather.png",
       "images": [
-        "/assets/projects/sunnyside-weather/sunnyside-weather.png",
-        "/assets/projects/sunnyside-weather/sunnyside-forecast-dark.png",
-        "/assets/projects/sunnyside-weather/sunnyside-home-dark.png",
-        "/assets/projects/sunnyside-weather/sunnyside-home-light.png"
+        "/assets/projects/sunnyside-weather/sunnyside-weather.webp",
+        "/assets/projects/sunnyside-weather/sunnyside-forecast-dark.webp",
+        "/assets/projects/sunnyside-weather/sunnyside-home-dark.webp",
+        "/assets/projects/sunnyside-weather/sunnyside-home-light.webp"
       ],
       "captions": [
         "Daily forecast view in light mode",
