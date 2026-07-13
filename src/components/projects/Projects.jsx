@@ -17,6 +17,8 @@ const additionalProjects = projectsData.projects.filter((p) => !p.featured);
 function ImageCarousel({ images, captions = [], alt }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
   const hasMultiple = images.length > 1;
 
   const goToPrevious = (e) => {
@@ -42,8 +44,12 @@ function ImageCarousel({ images, captions = [], alt }) {
   return (
     <>
       <Box
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         sx={{
           position: "relative",
+          overflow: "hidden",
+          borderRadius: 1,
         }}
       >
         <Box
@@ -59,13 +65,37 @@ function ImageCarousel({ images, captions = [], alt }) {
             objectFit: "contain",
             borderRadius: 1,
             display: "block",
-            transition: "all 0.3s ease",
+            transition: "transform 0.5s ease",
             cursor: "pointer",
-            "&:hover": {
-              opacity: 0.9,
-            },
+            transform: isHovered ? "scale(1.03)" : "scale(1)",
           }}
         />
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "rgba(0,0,0,0.35)",
+            opacity: hasMultiple && isHovered ? 1 : 0,
+            transition: "opacity 0.3s ease",
+            pointerEvents: "none",
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "var(--font-family-primary)",
+              fontWeight: 600,
+              fontSize: "0.9rem",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "#fff",
+            }}
+          >
+            EXPLORE PROJECT →
+          </Typography>
+        </Box>
         {hasMultiple && (
           <>
             <IconButton
@@ -259,42 +289,47 @@ function FeaturedProject({ project, isFirst, index }) {
   // isFirst: image on left, text on right
   // !isFirst: text on left, image on right
   const imageOnLeft = isFirst;
+  const active = pageReady && inView;
+  const baseDelay = index * 150;
 
   return (
-    <Fade
-      in={inView}
-      timeout={600}
-      style={{ transitionDelay: `${index * 100}ms` }}
+    <Box
+      ref={ref}
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", lg: "row" },
+        gap: { xs: 3, lg: 4 },
+        mb: { xs: 8, md: 10, lg: 12 },
+        alignItems: { xs: "stretch", lg: "center" },
+      }}
     >
+      {/* Text Content — staggered reveal: kicker, title, description, tools */}
       <Box
-        ref={ref}
         sx={{
+          flex: { xs: "none", lg: 1 },
           display: "flex",
-          flexDirection: { xs: "column", lg: "row" },
-          gap: { xs: 3, lg: 4 },
-          mb: { xs: 8, md: 10, lg: 12 },
-          alignItems: { xs: "stretch", lg: "center" },
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: { xs: "center", lg: "flex-start" },
+          textAlign: { xs: "center", lg: "left" },
+          order: { xs: 1, lg: imageOnLeft ? 1 : 0 },
         }}
       >
-        {/* Text Content */}
-        <Box
-          sx={{
-            flex: { xs: "none", lg: 1 },
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: { xs: "center", lg: "flex-start" },
-            textAlign: { xs: "center", lg: "left" },
-            order: { xs: 1, lg: imageOnLeft ? 1 : 0 },
-          }}
-        >
-          {project.type === "professional" && (
+        {project.type === "professional" && (
+          <Fade
+            in={active}
+            timeout={500}
+            style={{ transitionDelay: `${baseDelay + 100}ms` }}
+          >
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 gap: 0.75,
                 mb: 1,
+                transform: active ? "translateY(0)" : "translateY(10px)",
+                transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+                transitionDelay: active ? `${baseDelay + 100}ms` : "0ms",
               }}
             >
               <WorkOutlineIcon
@@ -316,7 +351,14 @@ function FeaturedProject({ project, isFirst, index }) {
                 Professional Work
               </Typography>
             </Box>
-          )}
+          </Fade>
+        )}
+
+        <Fade
+          in={active}
+          timeout={500}
+          style={{ transitionDelay: `${baseDelay + 180}ms` }}
+        >
           <Typography
             variant="h3"
             sx={{
@@ -331,10 +373,20 @@ function FeaturedProject({ project, isFirst, index }) {
               color: "var(--color-text)",
               mb: { xs: 2, md: 2.5 },
               letterSpacing: "0.01em",
+              transform: active ? "translateY(0)" : "translateY(10px)",
+              transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+              transitionDelay: active ? `${baseDelay + 180}ms` : "0ms",
             }}
           >
             {project.name}
           </Typography>
+        </Fade>
+
+        <Fade
+          in={active}
+          timeout={500}
+          style={{ transitionDelay: `${baseDelay + 260}ms` }}
+        >
           <Typography
             sx={{
               fontFamily: "var(--font-family-primary)",
@@ -343,10 +395,20 @@ function FeaturedProject({ project, isFirst, index }) {
               lineHeight: 1.75,
               color: "var(--color-text)",
               mb: { xs: 2.5, md: 3 },
+              transform: active ? "translateY(0)" : "translateY(10px)",
+              transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+              transitionDelay: active ? `${baseDelay + 260}ms` : "0ms",
             }}
           >
             {project.description}
           </Typography>
+        </Fade>
+
+        <Fade
+          in={active}
+          timeout={500}
+          style={{ transitionDelay: `${baseDelay + 340}ms` }}
+        >
           <Typography
             sx={{
               fontFamily: "var(--font-family-primary)",
@@ -354,12 +416,32 @@ function FeaturedProject({ project, isFirst, index }) {
               fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" },
               color: "#73513F",
               letterSpacing: "0.01em",
+              transform: active ? "translateY(0)" : "translateY(10px)",
+              transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+              transitionDelay: active ? `${baseDelay + 340}ms` : "0ms",
             }}
           >
             {project.tools.join(" • ")}
           </Typography>
-          {(hasGithub || hasSite) && (
-            <Box sx={{ display: "flex", gap: 1, mt: 2.5, ml: -1 }}>
+        </Fade>
+
+        {(hasGithub || hasSite) && (
+          <Fade
+            in={active}
+            timeout={500}
+            style={{ transitionDelay: `${baseDelay + 420}ms` }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                gap: 1,
+                mt: 2.5,
+                ml: -1,
+                transform: active ? "translateY(0)" : "translateY(10px)",
+                transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+                transitionDelay: active ? `${baseDelay + 420}ms` : "0ms",
+              }}
+            >
               {hasGithub && (
                 <IconButton
                   component="a"
@@ -397,22 +479,37 @@ function FeaturedProject({ project, isFirst, index }) {
                 </IconButton>
               )}
             </Box>
-          )}
-        </Box>
+          </Fade>
+        )}
+      </Box>
 
-        {/* Project Image(s) */}
+      {/* Project Image(s) — wipe reveal: a paper-colored panel slides away
+          to uncover the image, which itself settles from a slight zoom */}
+      <Box
+        sx={{
+          flex: { xs: "none", lg: "0 0 auto" },
+          minWidth: 0,
+          display: "flex",
+          justifyContent: {
+            xs: "center",
+            lg: imageOnLeft ? "flex-start" : "flex-end",
+          },
+          alignItems: "center",
+          order: { xs: 0, lg: imageOnLeft ? 0 : 1 },
+        }}
+      >
         <Box
           sx={{
-            flex: { xs: "none", lg: "0 0 auto" },
-            minWidth: 0,
-            display: "flex",
-            justifyContent: {
-              xs: "center",
-              lg: imageOnLeft ? "flex-start" : "flex-end",
+            overflow: "hidden",
+            borderRadius: 1,
+            opacity: active ? 1 : 0,
+            transition: "opacity 0.7s ease",
+            transitionDelay: active ? `${baseDelay + 100}ms` : "0ms",
+            "& > *:first-of-type": {
+              transform: active ? "scale(1)" : "scale(1.08)",
+              transition: "transform 1s cubic-bezier(0.22, 1, 0.36, 1)",
+              transitionDelay: active ? `${baseDelay + 100}ms` : "0ms",
             },
-            alignItems: "center",
-            order: { xs: 0, lg: imageOnLeft ? 0 : 1 },
-            transition: "all 0.3s ease",
           }}
         >
           {project.images && project.images.length > 0 ? (
@@ -433,13 +530,13 @@ function FeaturedProject({ project, isFirst, index }) {
                 maxHeight: "400px",
                 objectFit: "contain",
                 borderRadius: 1,
-                transition: "all 0.3s ease",
+                display: "block",
               }}
             />
           )}
         </Box>
       </Box>
-    </Fade>
+    </Box>
   );
 }
 
@@ -451,7 +548,7 @@ function AdditionalProject({ project, index }) {
 
   return (
     <Fade
-      in={inView}
+      in={pageReady && inView}
       timeout={600}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
@@ -466,6 +563,20 @@ function AdditionalProject({ project, index }) {
           display: "flex",
           flexDirection: "column",
           backgroundColor: "var(--color-background)",
+
+          transition:
+            "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
+
+          "&:hover": {
+            transform: "translateY(-4px)",
+            borderColor: "#73513F",
+            boxShadow: "0 10px 24px rgba(0,0,0,0.05)",
+
+            "& .project-folder": {
+              transform: "translateY(-2px)",
+              opacity: 0.85,
+            },
+          },
         }}
       >
         {/* Header with folder icon and github */}
@@ -478,9 +589,11 @@ function AdditionalProject({ project, index }) {
           }}
         >
           <FolderOpenIcon
+            className="project-folder"
             sx={{
               fontSize: { xs: 36, md: 40 },
               color: "var(--color-text)",
+              transition: "transform 0.3s ease, opacity 0.3s ease",
             }}
           />
           <Box sx={{ display: "flex", gap: 0.5 }}>
@@ -551,13 +664,15 @@ function AdditionalProject({ project, index }) {
         <Typography
           sx={{
             fontFamily: "var(--font-family-primary)",
-            fontWeight: 600,
-            fontSize: { xs: "0.8rem", sm: "0.85rem" },
+            fontWeight: 500,
+            fontSize: { xs: "0.75rem", sm: "0.8rem" },
             color: "#73513F",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
             mt: "auto",
           }}
         >
-          {project.tools.join(" • ")}
+          {project.tools.join(" / ")}
         </Typography>
       </Box>
     </Fade>
@@ -572,8 +687,10 @@ function Projects() {
   });
   const { ref: moreTitleRef, inView: moreTitleInView } = useInView({
     triggerOnce: true,
-    threshold: 0.2,
+    threshold: 0.4,
   });
+
+  const archiveActive = pageReady && moreTitleInView;
 
   return (
     <Box
@@ -619,23 +736,43 @@ function Projects() {
         ))}
       </Box>
 
-      {/* More Projects Section */}
-      <Fade in={pageReady && moreTitleInView} timeout={600}>
-        <Typography
-          ref={moreTitleRef}
-          variant="h3"
+      {/* More Projects Section — divider draws left to right on scroll */}
+      <Box
+        ref={moreTitleRef}
+        sx={{
+          mb: { xs: 4, sm: 5, md: 6 },
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <Fade in={archiveActive} timeout={500}>
+          <Typography
+            sx={{
+              fontFamily: "var(--font-family-primary)",
+              fontWeight: 600,
+              fontSize: { xs: "0.85rem", sm: "0.95rem", md: "1rem" },
+              letterSpacing: "0.15em",
+              color: "var(--color-text)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            PROJECT ARCHIVE
+          </Typography>
+        </Fade>
+
+        <Box
           sx={{
-            fontFamily: "var(--font-family-primary)",
-            fontWeight: 700,
-            fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" },
-            color: "var(--color-text)",
-            textAlign: "center",
-            mb: { xs: 4, sm: 5, md: 6 },
+            height: "1px",
+            flex: 1,
+            backgroundColor: "rgba(51,51,51,0.25)",
+            transformOrigin: "left",
+            transform: archiveActive ? "scaleX(1)" : "scaleX(0)",
+            transition: "transform 0.9s cubic-bezier(0.65, 0, 0.35, 1)",
+            transitionDelay: archiveActive ? "150ms" : "0ms",
           }}
-        >
-          MORE PROJECTS
-        </Typography>
-      </Fade>
+        />
+      </Box>
 
       {/* Additional Projects Grid */}
       <Box

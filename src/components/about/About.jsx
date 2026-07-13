@@ -42,85 +42,120 @@ function TimelineItem({ item, isLast, index }) {
   const Icon = isWork ? WorkOutlineIcon : SchoolIcon;
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
+  const active = pageReady && inView;
+  const baseDelay = index * 200;
+
   return (
-    <Fade
-      in={pageReady && inView}
-      timeout={600}
-      style={{ transitionDelay: `${index * 150}ms` }}
+    <Box
+      ref={ref}
+      sx={{
+        display: "flex",
+        gap: { xs: 2, sm: 3 },
+        "&:hover .timeline-content": {
+          transform: "translateX(5px)",
+        },
+        "&:hover .timeline-date": {
+          opacity: 1,
+        },
+      }}
     >
+      {/* Timeline line and dot — stays static, never affected by hover */}
       <Box
-        ref={ref}
         sx={{
           display: "flex",
-          gap: { xs: 2, sm: 3 },
+          flexDirection: "column",
+          alignItems: "center",
+          minWidth: { xs: 32, sm: 40 },
         }}
       >
-        {/* Timeline line and dot */}
+        {/* Icon circle — scales/rotates in after the line starts drawing */}
         <Box
           sx={{
+            width: { xs: 32, sm: 40 },
+            height: { xs: 32, sm: 40 },
+            borderRadius: "50%",
+            backgroundColor: "var(--color-text)",
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
-            minWidth: { xs: 32, sm: 40 },
+            justifyContent: "center",
+            flexShrink: 0,
+            opacity: active ? 1 : 0,
+            transform: active
+              ? "scale(1) rotate(0deg)"
+              : "scale(0.4) rotate(-25deg)",
+            transition:
+              "transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.45s ease",
+            transitionDelay: active ? `${baseDelay + 250}ms` : "0ms",
           }}
         >
-          {/* Icon circle */}
-          <Box
+          <Icon
             sx={{
-              width: { xs: 32, sm: 40 },
-              height: { xs: 32, sm: 40 },
-              borderRadius: "50%",
-              backgroundColor: "var(--color-text)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
+              fontSize: { xs: 16, sm: 20 },
+              color: "var(--color-background)",
             }}
-          >
-            <Icon
-              sx={{
-                fontSize: { xs: 16, sm: 20 },
-                color: "var(--color-background)",
-              }}
-            />
-          </Box>
-          {/* Connecting line */}
-          {!isLast && (
-            <Box
-              sx={{
-                width: "2px",
-                flex: 1,
-                backgroundColor: "var(--color-text)",
-                opacity: 0.3,
-                mt: 1,
-              }}
-            />
-          )}
+          />
         </Box>
 
-        {/* Content */}
-        <Box
-          sx={{
-            flex: 1,
-            pb: isLast ? 0 : { xs: 4, sm: 5 },
-          }}
+        {/* Connecting line — draws downward like an ink stroke */}
+        {!isLast && (
+          <Box
+            sx={{
+              width: "2px",
+              flex: 1,
+              backgroundColor: "var(--color-text)",
+              opacity: 0.3,
+              mt: 1,
+              transformOrigin: "top",
+              transform: active ? "scaleY(1)" : "scaleY(0)",
+              transition: "transform 0.9s cubic-bezier(0.65, 0, 0.35, 1)",
+              transitionDelay: active ? `${baseDelay}ms` : "0ms",
+            }}
+          />
+        )}
+      </Box>
+
+      {/* Content — staggered reveal on scroll, nudges right on hover */}
+      <Box
+        className="timeline-content"
+        sx={{
+          flex: 1,
+          pb: isLast ? 0 : { xs: 4, sm: 5 },
+          transition: "transform 0.15s ease",
+        }}
+      >
+        {/* Date */}
+        <Fade
+          in={active}
+          timeout={500}
+          style={{ transitionDelay: `${baseDelay + 300}ms` }}
         >
-          {/* Date */}
           <Typography
+            className="timeline-date"
             sx={{
               fontFamily: "var(--font-family-primary)",
               fontWeight: 600,
               fontSize: { xs: "0.75rem", sm: "0.8rem" },
               color: "#73513F",
+              opacity: 0.75,
               textTransform: "uppercase",
               letterSpacing: "0.05em",
               mb: 0.5,
+              transform: active ? "translateY(0)" : "translateY(10px)",
+              transition:
+                "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.15s ease",
+              transitionDelay: active ? `${baseDelay + 300}ms` : "0ms",
             }}
           >
             {item.startDate} — {item.endDate}
           </Typography>
+        </Fade>
 
-          {/* Title */}
+        {/* Title */}
+        <Fade
+          in={active}
+          timeout={500}
+          style={{ transitionDelay: `${baseDelay + 380}ms` }}
+        >
           <Typography
             sx={{
               fontFamily: "var(--font-family-primary)",
@@ -128,12 +163,21 @@ function TimelineItem({ item, isLast, index }) {
               fontSize: { xs: "1rem", sm: "1.1rem", md: "1.15rem" },
               color: "var(--color-text)",
               mb: 0.25,
+              transform: active ? "translateY(0)" : "translateY(10px)",
+              transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+              transitionDelay: active ? `${baseDelay + 380}ms` : "0ms",
             }}
           >
             {item.title}
           </Typography>
+        </Fade>
 
-          {/* Organization */}
+        {/* Organization */}
+        <Fade
+          in={active}
+          timeout={500}
+          style={{ transitionDelay: `${baseDelay + 460}ms` }}
+        >
           <Typography
             sx={{
               fontFamily: "var(--font-family-primary)",
@@ -142,12 +186,21 @@ function TimelineItem({ item, isLast, index }) {
               color: "var(--color-text)",
               opacity: 0.8,
               mb: 1,
+              transform: active ? "translateY(0)" : "translateY(10px)",
+              transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+              transitionDelay: active ? `${baseDelay + 460}ms` : "0ms",
             }}
           >
             {item.organization}
           </Typography>
+        </Fade>
 
-          {/* Description */}
+        {/* Description */}
+        <Fade
+          in={active}
+          timeout={500}
+          style={{ transitionDelay: `${baseDelay + 540}ms` }}
+        >
           <Typography
             sx={{
               fontFamily: "var(--font-family-primary)",
@@ -156,13 +209,16 @@ function TimelineItem({ item, isLast, index }) {
               lineHeight: 1.6,
               color: "var(--color-text)",
               opacity: 0.75,
+              transform: active ? "translateY(0)" : "translateY(10px)",
+              transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+              transitionDelay: active ? `${baseDelay + 540}ms` : "0ms",
             }}
           >
             {item.description}
           </Typography>
-        </Box>
+        </Fade>
       </Box>
-    </Fade>
+    </Box>
   );
 }
 
@@ -176,14 +232,30 @@ function About() {
     triggerOnce: true,
     threshold: 0.2,
   });
+  const { ref: dividerRef1, inView: divider1InView } = useInView({
+    triggerOnce: true,
+    threshold: 0.4,
+  });
+  const { ref: dividerRef2, inView: divider2InView } = useInView({
+    triggerOnce: true,
+    threshold: 0.4,
+  });
   const { ref: row2Ref, inView: row2InView } = useInView({
     triggerOnce: true,
     threshold: 0.2,
+  });
+  const { ref: dividerRef3, inView: divider3InView } = useInView({
+    triggerOnce: true,
+    threshold: 0.4,
   });
   const { ref: timelineTitleRef, inView: timelineTitleInView } = useInView({
     triggerOnce: true,
     threshold: 0.2,
   });
+
+  const divider1Active = pageReady && divider1InView;
+  const divider2Active = pageReady && divider2InView;
+  const divider3Active = pageReady && divider3InView;
 
   return (
     <Box
@@ -238,28 +310,46 @@ function About() {
               py: { md: 4, lg: 5 },
             }}
           >
+            {/* Contained zoom — frame stays fixed, only the photo itself moves */}
             <Box
-              component="img"
-              src={aboutImage1}
-              alt="Kelly at graduation"
-              width="724"
-              height="358"
-              loading="lazy"
-              decoding="async"
               sx={{
                 width: "100%",
                 height: { xs: "280px", sm: "320px", md: "200px", lg: "240px" },
-                objectFit: "cover",
+                overflow: "hidden",
               }}
-            />
+            >
+              <Box
+                component="img"
+                src={aboutImage1}
+                alt="Kelly at graduation"
+                width="724"
+                height="358"
+                loading="lazy"
+                decoding="async"
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  transform: "scale(1)",
+                  transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+                  "&:hover": {
+                    transform: "scale(1.06)",
+                  },
+                }}
+              />
+            </Box>
           </Box>
-          {/* Vertical divider */}
+          {/* Vertical divider — draws downward on scroll */}
           <Box
+            ref={dividerRef1}
             sx={{
               display: { xs: "none", md: "block" },
               width: "2px",
               backgroundColor: "var(--color-text)",
               opacity: 0.3,
+              transformOrigin: "top",
+              transform: divider1Active ? "scaleY(1)" : "scaleY(0)",
+              transition: "transform 0.9s cubic-bezier(0.65, 0, 0.35, 1)",
             }}
           />
           <Box
@@ -300,13 +390,17 @@ function About() {
         </Box>
       </Fade>
 
-      {/* Horizontal divider between rows - hidden on mobile */}
+      {/* Horizontal divider between rows - draws left to right on scroll, hidden on mobile */}
       <Box
+        ref={dividerRef2}
         sx={{
           display: { xs: "none", md: "block" },
           height: "2px",
           backgroundColor: "var(--color-text)",
           opacity: 0.3,
+          transformOrigin: "left",
+          transform: divider2Active ? "scaleX(1)" : "scaleX(0)",
+          transition: "transform 1s cubic-bezier(0.65, 0, 0.35, 1)",
         }}
       />
 
@@ -352,13 +446,17 @@ function About() {
               playing music on my kalimba.
             </Typography>
           </Box>
-          {/* Vertical divider */}
+          {/* Vertical divider — draws downward on scroll */}
           <Box
+            ref={dividerRef3}
             sx={{
               display: { xs: "none", md: "block" },
               width: "2px",
               backgroundColor: "var(--color-text)",
               opacity: 0.3,
+              transformOrigin: "top",
+              transform: divider3Active ? "scaleY(1)" : "scaleY(0)",
+              transition: "transform 0.9s cubic-bezier(0.65, 0, 0.35, 1)",
             }}
           />
           <Box
@@ -371,20 +469,34 @@ function About() {
               py: { md: 4, lg: 5 },
             }}
           >
+            {/* Contained zoom — frame stays fixed, only the photo itself moves */}
             <Box
-              component="img"
-              src={aboutImage2}
-              alt="Orchids in garden"
-              width="1050"
-              height="358"
-              loading="lazy"
-              decoding="async"
               sx={{
                 width: "100%",
                 height: { xs: "280px", sm: "320px", md: "200px", lg: "240px" },
-                objectFit: "cover",
+                overflow: "hidden",
               }}
-            />
+            >
+              <Box
+                component="img"
+                src={aboutImage2}
+                alt="Orchids in garden"
+                width="1050"
+                height="358"
+                loading="lazy"
+                decoding="async"
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  transform: "scale(1)",
+                  transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+                  "&:hover": {
+                    transform: "scale(1.06)",
+                  },
+                }}
+              />
+            </Box>
           </Box>
         </Box>
       </Fade>
