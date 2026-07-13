@@ -1,17 +1,9 @@
 import { useState } from "react";
-import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import {
-  Preloader,
-  Navbar,
-  Hero,
-  SocialSidebar,
-  About,
-  Skills,
-  Projects,
-  Footer,
-  MusicPlayer,
-} from "./components";
-import { PageReadyProvider } from "./context/PageReadyContext";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import Home from "./pages/Home";
+import CaseStudy from "./pages/CaseStudy";
+import { MusicPlayer } from "./components";
 
 const theme = createTheme({
   components: {
@@ -32,20 +24,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <PageReadyProvider value={pageReady}>
-        <Preloader onComplete={() => setPageReady(true)} />
+      <Routes>
+        <Route
+          path="/"
+          element={<Home pageReady={pageReady} setPageReady={setPageReady} />}
+        />
+        <Route path="/work/:slug" element={<CaseStudy />} />
 
-        <Box sx={{ minHeight: "100vh" }}>
-          <Navbar />
-          <SocialSidebar />
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Footer />
-          <MusicPlayer />
-        </Box>
-      </PageReadyProvider>
+        {/* Catch-all: any unknown URL (e.g. /dogs) redirects to the home page. */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+
+      {/* Rendered once, outside <Routes>, so playback persists across
+          navigation between the portfolio and case study pages. */}
+      <MusicPlayer />
     </ThemeProvider>
   );
 }

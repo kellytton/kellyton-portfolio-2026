@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Box, Typography, IconButton, Dialog, Fade } from "@mui/material";
 import { useInView } from "react-intersection-observer";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
@@ -284,6 +286,7 @@ function FeaturedProject({ project, isFirst, index }) {
   const pageReady = usePageReady();
   const hasGithub = project.githubUrl && project.githubUrl.length > 0;
   const hasSite = project.siteUrl && project.siteUrl.length > 0;
+  const hasCaseStudy = Boolean(project.caseStudy && project.slug);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   // isFirst: image on left, text on right
@@ -303,7 +306,7 @@ function FeaturedProject({ project, isFirst, index }) {
         alignItems: { xs: "stretch", lg: "center" },
       }}
     >
-      {/* Text Content — staggered reveal: kicker, title, description, tools */}
+      {/* Text Content — staggered reveal: kicker, title+links, description, tools, CTA */}
       <Box
         sx={{
           flex: { xs: "none", lg: 1 },
@@ -354,32 +357,90 @@ function FeaturedProject({ project, isFirst, index }) {
           </Fade>
         )}
 
+        {/* Title row — name plus quick GitHub/site links */}
         <Fade
           in={active}
           timeout={500}
           style={{ transitionDelay: `${baseDelay + 180}ms` }}
         >
-          <Typography
-            variant="h3"
+          <Box
             sx={{
-              fontFamily: "var(--font-family-primary)",
-              fontWeight: 700,
-              fontSize: {
-                xs: "1.5rem",
-                sm: "1.75rem",
-                md: "1.875rem",
-                lg: "2rem",
-              },
-              color: "var(--color-text)",
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: { xs: "center", lg: "flex-start" },
+              gap: 1,
               mb: { xs: 2, md: 2.5 },
-              letterSpacing: "0.01em",
               transform: active ? "translateY(0)" : "translateY(10px)",
               transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
               transitionDelay: active ? `${baseDelay + 180}ms` : "0ms",
             }}
           >
-            {project.name}
-          </Typography>
+            <Typography
+              variant="h3"
+              sx={{
+                fontFamily: "var(--font-family-primary)",
+                fontWeight: 700,
+                fontSize: {
+                  xs: "1.5rem",
+                  sm: "1.75rem",
+                  md: "1.875rem",
+                  lg: "2rem",
+                },
+                color: "var(--color-text)",
+                letterSpacing: "0.01em",
+              }}
+            >
+              {project.name}
+            </Typography>
+
+            {(hasGithub || hasSite) && (
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 0.25,
+                  ml: -1,
+                }}
+              >
+                {hasGithub && (
+                  <IconButton
+                    component="a"
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View on GitHub"
+                    sx={{
+                      color: "var(--color-text)",
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                        opacity: 0.7,
+                      },
+                    }}
+                  >
+                    <GitHubIcon sx={{ fontSize: 20 }} />
+                  </IconButton>
+                )}
+                {hasSite && (
+                  <IconButton
+                    component="a"
+                    href={project.siteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View live site"
+                    sx={{
+                      color: "var(--color-text)",
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                        opacity: 0.7,
+                      },
+                    }}
+                  >
+                    <LaunchIcon sx={{ fontSize: 20 }} />
+                  </IconButton>
+                )}
+              </Box>
+            )}
+          </Box>
         </Fade>
 
         <Fade
@@ -425,66 +486,144 @@ function FeaturedProject({ project, isFirst, index }) {
           </Typography>
         </Fade>
 
-        {(hasGithub || hasSite) && (
+        {hasCaseStudy && (
           <Fade
             in={active}
             timeout={500}
             style={{ transitionDelay: `${baseDelay + 420}ms` }}
           >
             <Box
+              component={Link}
+              to={`/work/${project.slug}`}
+              aria-label={`View the ${project.name} case study`}
               sx={{
-                display: "flex",
-                gap: 1,
-                mt: 2.5,
-                ml: -1,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 1.5,
+                mt: 3.5,
+                px: 3,
+                py: 1.5,
+                position: "relative",
+                overflow: "hidden",
+                textDecoration: "none",
+                cursor: "pointer",
                 transform: active ? "translateY(0)" : "translateY(10px)",
                 transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
                 transitionDelay: active ? `${baseDelay + 420}ms` : "0ms",
+
+                "&:hover .cs-fill": { transform: "scaleX(1)" },
+                "&:hover .cs-label": { color: "var(--color-background)" },
+                "&:hover .cs-arrow": {
+                  color: "var(--color-background)",
+                  transform: "translateX(3px)",
+                },
               }}
             >
-              {hasGithub && (
-                <IconButton
-                  component="a"
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="View on GitHub"
-                  sx={{
-                    color: "var(--color-text)",
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                      opacity: 0.7,
-                    },
-                  }}
-                >
-                  <GitHubIcon sx={{ fontSize: 24 }} />
-                </IconButton>
-              )}
-              {hasSite && (
-                <IconButton
-                  component="a"
-                  href={project.siteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="View live site"
-                  sx={{
-                    color: "var(--color-text)",
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                      opacity: 0.7,
-                    },
-                  }}
-                >
-                  <LaunchIcon sx={{ fontSize: 24 }} />
-                </IconButton>
-              )}
+              {/* Frame — drawn in two strokes: horizontal edges, then vertical edges */}
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "1.5px",
+                  backgroundColor: "#73513F",
+                  transformOrigin: "left",
+                  transform: active ? "scaleX(1)" : "scaleX(0)",
+                  transition: "transform 0.45s cubic-bezier(0.65, 0, 0.35, 1)",
+                  transitionDelay: active ? `${baseDelay + 480}ms` : "0ms",
+                }}
+              />
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "1.5px",
+                  backgroundColor: "#73513F",
+                  transformOrigin: "left",
+                  transform: active ? "scaleX(1)" : "scaleX(0)",
+                  transition: "transform 0.45s cubic-bezier(0.65, 0, 0.35, 1)",
+                  transitionDelay: active ? `${baseDelay + 480}ms` : "0ms",
+                }}
+              />
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "1.5px",
+                  height: "100%",
+                  backgroundColor: "#73513F",
+                  transformOrigin: "top",
+                  transform: active ? "scaleY(1)" : "scaleY(0)",
+                  transition: "transform 0.35s cubic-bezier(0.65, 0, 0.35, 1)",
+                  transitionDelay: active ? `${baseDelay + 720}ms` : "0ms",
+                }}
+              />
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  width: "1.5px",
+                  height: "100%",
+                  backgroundColor: "#73513F",
+                  transformOrigin: "top",
+                  transform: active ? "scaleY(1)" : "scaleY(0)",
+                  transition: "transform 0.35s cubic-bezier(0.65, 0, 0.35, 1)",
+                  transitionDelay: active ? `${baseDelay + 720}ms` : "0ms",
+                }}
+              />
+
+              {/* Fill sweep — solid color invert on hover */}
+              <Box
+                className="cs-fill"
+                sx={{
+                  position: "absolute",
+                  inset: 0,
+                  backgroundColor: "#73513F",
+                  transformOrigin: "left",
+                  transform: "scaleX(0)",
+                  transition: "transform 0.4s cubic-bezier(0.65, 0, 0.35, 1)",
+                  zIndex: 0,
+                }}
+              />
+
+              <Typography
+                className="cs-label"
+                sx={{
+                  position: "relative",
+                  zIndex: 1,
+                  fontFamily: "var(--font-family-primary)",
+                  fontWeight: 600,
+                  fontSize: { xs: "0.8rem", sm: "0.85rem" },
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  color: "#73513F",
+                  whiteSpace: "nowrap",
+                  transition: "color 0.3s ease",
+                }}
+              >
+                View Case Study
+              </Typography>
+              <ArrowForwardIcon
+                className="cs-arrow"
+                sx={{
+                  position: "relative",
+                  zIndex: 1,
+                  fontSize: 18,
+                  color: "#73513F",
+                  transition: "color 0.3s ease, transform 0.3s ease",
+                }}
+              />
             </Box>
           </Fade>
         )}
       </Box>
 
-      {/* Project Image(s) — wipe reveal: a paper-colored panel slides away
-          to uncover the image, which itself settles from a slight zoom */}
+      {/* Project Image(s) — image fades and settles from a slight zoom */}
       <Box
         sx={{
           flex: { xs: "none", lg: "0 0 auto" },

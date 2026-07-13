@@ -4,7 +4,69 @@
       "featured": true,
       "type": "professional",
       "name": "DEFTECHLINK",
+      "slug": "deftechlink",
       "description": "DEFTECHLINK is a startup platform connecting defense innovation opportunities with industry, academia, and government partners. I built the entire frontend from scratch, integrating RESTful APIs, implementing authentication flows, setting up Stripe payments for onboarding, and ensuring a responsive, accessible, and polished user interface.",
+      "caseStudy": {
+        "role": "Lead Full Stack Developer & UI/UX Designer",
+        "timeline": "May 2025 – July 2026 (1 year, 3 months)",
+        "summary": "DEFTECHLINK is a startup platform that connects defense innovation opportunities across industry, academia, and government. I joined as a Frontend Developer and quickly expanded into a Lead Full Stack Developer & UI/UX Designer, helping build the platform from the ground up alongside one other engineer. I led the frontend experience while contributing across the full stack, from wireframing and branding to API integrations, authentication, and Stripe-powered onboarding.",
+        "problem": "Organizations entering or expanding within the defense industry often rely on fragmented resources for opportunities, funding, networking, and market intelligence. DEFTECHLINK aimed to centralize these resources into a single platform that felt modern, trustworthy, and intuitive despite the complexity of the domain.",
+        "approach": "My process always began with understanding the problem before writing code. I created low-fidelity wireframes in Figma to validate navigation and user flows, using them as the blueprint for development. Although the final product evolved significantly beyond these early concepts, they established the structure that shaped the application. Because the platform served the defense industry, I also invested time learning defense terminology, procurement workflows, and the competitive landscape so the user experience reflected the needs of our audience.",
+        "decisions": [
+          {
+            "title": "Wireframe the whole product before high fidelity",
+            "reason": "The portal spanned seven+ distinct screens and workflows. Creating low-fidelity wireframes first allowed me to validate navigation, information hierarchy, and user flows early before investing time in detailed designs or implementation."
+          },
+          {
+            "title": "Build a scalable content management system",
+            "reason": "I developed a role-based content management system that supported both administrative workflows and learner experiences. Administrators could create rich-text resources, upload videos, manage metadata, schedule publications, organize content into courses and collections, attach downloadable templates, and analyze user feedback through built-in analytics. This architecture allowed content teams to manage educational resources without developer intervention while giving learners a structured and intuitive way to discover and engage with content."
+          },
+          {
+            "title": "Balance speed with scalability",
+            "reason": "With only two engineers building the platform, every technical decision needed to support rapid development without sacrificing maintainability. I focused on creating reusable components, consistent design patterns, and clean integrations so we could continue shipping features as the product evolved."
+          }
+        ],
+        "design": [
+          {
+            "src": "/assets/projects/deftechlink/dtl-landing-wireframes.webp",
+            "label": "From Structure to Visual Direction",
+            "caption": "Early low-fidelity wireframes helped establish the landing page structure, content hierarchy, and user flow. From there, I refined individual sections into high-fidelity designs by applying the DEFTECHLINK brand identity, visual language, and product direction."
+          },
+          {
+            "src": "/assets/projects/deftechlink/dtl-portal-wireframes.webp",
+            "label": "Platform Architecture & User Flows",
+            "caption": "Early wireframes mapping the core platform experience across the dashboard, opportunities, teammate marketplace, learning hub, funding, and events. Defining the overall structure upfront helped establish consistent navigation patterns and create a foundation for development."
+          },
+          {
+            "phase": "iteration",
+            "step": "01",
+            "src": "/assets/projects/deftechlink/feature-version-1.webp",
+            "label": "Initial Product Direction",
+            "caption": "The first iteration introduced DEFTECHLINK's core platform capabilities. As the product evolved, it became clear that presenting every feature with equal weight made it difficult for users to grasp the platform's primary value."
+          },
+          {
+            "phase": "iteration",
+            "step": "02",
+            "images": [
+              "/assets/projects/deftechlink/feature-version-2.webp",
+              "/assets/projects/deftechlink/feature-version-2-1.webp"
+            ],
+            "label": "Prioritizing Opportunities as the Core Value",
+            "caption": "As DEFTECHLINK expanded, we identified opportunities as the platform's primary value proposition. I redesigned the feature hierarchy to lead with opportunity discovery, then restructured the supporting features around the user's journey into the defense ecosystem."
+          },
+          {
+            "phase": "iteration",
+            "step": "03",
+            "images": [
+              "/assets/projects/deftechlink/feature-version-3.webp",
+              "/assets/projects/deftechlink/feature-version-3-1.webp"
+            ],
+            "label": "Improving Understanding & Engagement",
+            "caption": "The third iteration focused on reducing cognitive load and helping users understand the platform before exploring it. I streamlined the feature presentation, cut unnecessary scrolling, and introduced product demonstrations to communicate functionality more effectively."
+          }
+        ],
+        "outcome": "The result was a production-ready platform built from the ground up, where the brand experience, marketing site, onboarding flow, and authenticated application shared a consistent design language. Working alongside one other engineer, I helped establish the frontend architecture, reusable design patterns, and user experiences that allowed DEFTECHLINK to continue expanding as the product evolved. The platform provided a foundation for connecting defense organizations with opportunities, resources, and collaboration tools through a modern, accessible, and intuitive experience."
+      },
       "tools": [
         "ReactJS",
         "MUI",

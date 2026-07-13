@@ -14,9 +14,9 @@ import {
 import resumePdf from "../../assets/Kelly Ton Resume 2026.pdf";
 
 const navItems = [
-  { label: "ABOUT", href: "#about" },
-  { label: "SKILLS", href: "#skills" },
-  { label: "PROJECTS", href: "#projects" },
+  { label: "ABOUT", href: "/#about" },
+  { label: "SKILLS", href: "/#skills" },
+  { label: "PROJECTS", href: "/#projects" },
 ];
 
 function Navbar() {
