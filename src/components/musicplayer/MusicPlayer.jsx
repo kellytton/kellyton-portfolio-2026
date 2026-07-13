@@ -63,6 +63,12 @@ const MusicPlayer = () => {
   const containerRef = useRef(null);
   const previousVolumeRef = useRef(0.35);
 
+  // Web Audio graph. iOS Safari ignores audio.volume/audio.muted, but it DOES
+  // honor a GainNode's gain — so we route the element through one and treat the
+  // gain node as the source of truth for volume everywhere.
+  const audioCtxRef = useRef(null);
+  const gainRef = useRef(null);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [volume, setVolume] = useState(
@@ -72,15 +78,40 @@ const MusicPlayer = () => {
   if (!audioRef.current) {
     const audio = new Audio(track);
     audio.loop = true;
-    audio.volume = volume;
+    audio.crossOrigin = "anonymous";
     audioRef.current = audio;
   }
+
+  // Lazily build the Web Audio graph. createMediaElementSource can only be
+  // called once per element, so this must run at most once.
+  const ensureAudioGraph = () => {
+    if (gainRef.current) return audioCtxRef.current;
+
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return null;
+
+    const ctx = new AudioContextClass();
+    const source = ctx.createMediaElementSource(audioRef.current);
+    const gain = ctx.createGain();
+    gain.gain.value = volume;
+    source.connect(gain);
+    gain.connect(ctx.destination);
+
+    audioCtxRef.current = ctx;
+    gainRef.current = gain;
+    return ctx;
+  };
 
   useEffect(() => {
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
+      }
+      if (audioCtxRef.current) {
+        audioCtxRef.current.close();
+        audioCtxRef.current = null;
+        gainRef.current = null;
       }
     };
   }, []);
@@ -90,6 +121,11 @@ const MusicPlayer = () => {
     if (!audio) return;
 
     if (isPlaying) {
+      // Building/resuming the context must happen inside the play gesture so
+      // iOS unlocks audio. AudioContexts start "suspended" until a gesture.
+      const ctx = ensureAudioGraph();
+      if (ctx && ctx.state === "suspended") ctx.resume();
+
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.catch((error) => {
@@ -103,10 +139,15 @@ const MusicPlayer = () => {
   }, [isPlaying]);
 
   useEffect(() => {
-    if (audioRef.current) {
+    // Drive volume through the gain node when the graph exists (works on iOS),
+    // and fall back to audio.volume before the graph is built (first render,
+    // pre-play).
+    if (gainRef.current) {
+      gainRef.current.gain.value = volume;
+    } else if (audioRef.current) {
       audioRef.current.volume = volume;
-      localStorage.setItem("musicVolume", volume);
     }
+    localStorage.setItem("musicVolume", volume);
   }, [volume]);
 
   // Keep track of the last non-zero volume, no matter how we got to 0
