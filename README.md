@@ -36,10 +36,13 @@ Thanks for stopping by. I hope you enjoy exploring my work!
 
 <div align="center">
 
-<img src="public/assets/readme/readme-1.webp" alt="Portfolio screenshot 1" width="48%" />
-<img src="public/assets/readme/readme-2.webp" alt="Portfolio screenshot 2" width="48%" />
-<img src="public/assets/readme/readme-3.webp" alt="Portfolio screenshot 3" width="48%" />
-<img src="public/assets/readme/readme-4.webp" alt="Portfolio screenshot 4" width="48%" />
+<img src="public/assets/readme/readme-1.webp" alt="Portfolio screenshot 1" width="85%" />
+
+<img src="public/assets/readme/readme-2.webp" alt="Portfolio screenshot 2" width="85%" />
+
+<img src="public/assets/readme/readme-3.webp" alt="Portfolio screenshot 3" width="85%" />
+
+<img src="public/assets/readme/readme-4.webp" alt="Portfolio screenshot 4" width="85%" />
 
 </div>
 
