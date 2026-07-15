@@ -91,16 +91,99 @@
         "/assets/projects/deftechlink/deftechlink-8.webp"
       ],
       "captions": [
-        "Opportunities page with detailed view modal for quick access to listing information. AI match analysis allows for a quick deduction of the opportunity's relevance to the user.",
-        "Learning hub featuring organized resources and interactive navigation. There are structured courses, collections of resources, and single resources available.",
-        "Organized dashboard showcasing upcoming opportunities and events. Users can quickly access their saved items and view relevant information.",
-        "Group Opportunities tab showing active collaboration and member engagement.",
-        "Events page with filterable listings and intuitive calendar integration.",
-        "Rich text editor for article creation with formatting toolbar and live preview.",
-        "Landing page hero section designed to make a strong first impression.",
-        "Features section highlighting the platform's core capabilities."
+        "Opportunity listings with detail views and AI-powered relevance matching.",
+        "Learning hub with organized courses, collections, and resources.",
+        "Dashboard displaying upcoming opportunities, events, and saved items.",
+        "Group opportunities with collaboration and member engagement.",
+        "Events page with filters and calendar integration.",
+        "Rich text editor with formatting tools and live preview.",
+        "Landing page hero section introducing the platform.",
+        "Features section highlighting core platform capabilities."
       ],
       "siteUrl": "https://deftechlink.com"
+    },
+    {
+      "featured": true,
+      "type": "personal",
+      "name": "MORPH",
+      "slug": "morph",
+      "description": "Morph is a browser-based file transformation toolkit for converting, compressing, and managing digital files. I designed and developed the application using React and WebAssembly-powered tools, building an intuitive interface with real-time feedback, local file processing, and a seamless workflow without requiring accounts or uploads.",
+      "caseStudy": {
+        "summary": "Morph is a file transformation toolkit designed to simplify everyday tasks like converting, compressing, and merging files through a clean, intuitive interface. While many existing tools accomplish these tasks, they often interrupt workflows with advertisements, aggressive paywalls, confusing navigation, or unnecessary account requirements. Morph was built to provide a faster, more thoughtful experience that prioritizes usability, accessibility, and efficiency for students, designers, developers, and anyone working with digital files.",
+        "problem": "File conversion has become an everyday task, yet many existing tools introduce unnecessary friction through advertisements, usage limits, account requirements, or inconsistent user experiences. As both a UI/UX designer and software developer, I frequently found myself switching between multiple websites just to compress images, convert formats, or merge documents. Rather than continuing to adapt to fragmented workflows, I set out to design a single tool that felt fast, approachable, and enjoyable to use.",
+        "approach": "Rather than designing around individual conversion tools, I approached Morph as a unified file utility. Every interaction was designed to minimize friction, from drag-and-drop uploads and batch processing to automatically surfacing the most relevant conversion options based on the uploaded files. My goal was to make common tasks feel effortless while maintaining a consistent visual language across converting, compressing, and merging workflows.",
+        "decisions": [
+          {
+            "title": "Build around workflows, not file formats",
+            "reason": "Rather than organizing Morph around dozens of individual conversion tools, I structured the experience around the tasks users are trying to accomplish: converting, merging, and compressing files. This simplified navigation while creating a foundation that can naturally expand as new file types and capabilities are introduced."
+          },
+          {
+            "title": "Design for scalability from day one",
+            "reason": "Although Morph began as an image conversion tool, I designed the information architecture to support future file types and workflows. Organizing features into reusable categories rather than individual converters allows the product to grow without requiring a complete redesign."
+          },
+          {
+            "title": "Keep users informed at every step",
+            "reason": "Rather than treating file conversion as a simple upload-and-download interaction, I designed Morph to provide continuous feedback throughout the entire process. Users can view processing progress, preview the converted file, and compare the original and optimized file sizes alongside the percentage saved."
+          }
+        ],
+        "design": [
+          {
+            "src": "/assets/projects/morph/morph-wireframes.webp",
+            "label": "Initial concept wireframes for the Convert workflow",
+            "caption": "Early Figma wireframes exploring the Convert experience in both light and dark themes. The concepts define the primary interface, conversion menu, upload workflow, and completed queue, including conversion metadata such as original size, converted size, files processed, and storage savings."
+          },
+          {
+            "src": "/assets/projects/morph/morph-evo.webp",
+            "label": "Evolution of the Convert interface",
+            "caption": "Evolution of the Convert interface from initial concepts to the final implementation. The first image is the wireframe, the second is a high-fidelity design, and the third is the final implementation. The final design simplified the interface, reduced cognitive load, and improved usability while maintaining a consistent visual language across all workflows."
+          },
+          {
+            "phase": "iteration",
+            "step": "01",
+            "images": [
+              "/assets/projects/morph/version-1.webp",
+              "/assets/projects/morph/version-1-1.webp"
+            ],
+            "label": "Shifting to a File-First Workflow",
+            "caption": "The initial interface assumed a conversion path before the user provided a file, which meant the displayed conversion wasn’t always relevant. By detecting the uploaded file type automatically, Morph adapts the available conversion options in real time. This change minimizes unnecessary interaction, reduces cognitive load, and keeps users focused on their primary task."
+          },
+          {
+            "phase": "iteration",
+            "step": "02",
+            "images": [
+              "/assets/projects/morph/version-2.webp",
+              "/assets/projects/morph/version-2-1.webp"
+            ],
+            "label": "Simplifying Conversion Navigation",
+            "caption": "As Morph expanded to support additional file formats, listing every individual conversion quickly became difficult to scan. Rather than presenting options like PNG → WebP, JPG → WebP, and GIF → WebP separately, I reorganized the interface around the destination format. Grouping conversions as To WebP, To PNG, or To JPG reduced visual clutter while creating a navigation system that can scale naturally as more formats are added."
+          }
+        ],
+        "outcome": "Morph demonstrates the way I enjoy building products by identifying a frustrating everyday workflow, designing a thoughtful solution, iterating on feedback, and shipping a polished experience. Rather than recreating existing converter websites, I focused on removing the friction they often introduce through confusing navigation, unnecessary decisions, and inconsistent user experiences. As the project evolved, so did the product itself. What began as a simple image converter grew into a unified file transformation toolkit built around user workflows instead of individual file formats. Designing with scalability in mind allowed new capabilities to be introduced without sacrificing the simplicity, consistency, and ease of use that defined the experience from the start."
+      },
+      "tools": [
+        "React",
+        "Vite",
+        "Material UI",
+        "FFmpeg.wasm",
+        "pdf-lib",
+        "pdf.js",
+        "WebAssembly",
+        "Figma"
+      ],
+      "githubUrl": "https://github.com/kellytton/morph",
+      "images": [
+        "/assets/projects/morph/morph-1.webp",
+        "/assets/projects/morph/morph-2.webp",
+        "/assets/projects/morph/morph-3.webp",
+        "/assets/projects/morph/morph-4.webp"
+      ],
+      "captions": [
+        "Convert files with drag-and-drop upload, previews, options, and download details.",
+        "Merge PDFs with upload, previews, and tools to merge, split, or rearrange pages.",
+        "Compress files with adjustable options, quality preservation, and real-time feedback.",
+        "Morph in light mode showcasing the clean interface and conversion workflow."
+      ],
+      "siteUrl": "https://usemorph.netlify.app"
     },
     {
       "featured": true,
