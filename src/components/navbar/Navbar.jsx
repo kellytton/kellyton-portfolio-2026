@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -22,9 +23,24 @@ const navItems = [
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  // Logo click: scroll to top when already home, otherwise route home.
+  // Both paths stay client-side so MusicPlayer playback survives (see App.jsx).
+  const handleLogoClick = (event) => {
+    event.preventDefault();
+    setMobileOpen(false);
+
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
   };
 
   // Scroll-aware navbar: hairline border + shadow fade in past 20px
@@ -54,7 +70,45 @@ function Navbar() {
           transition: "border-color 0.4s ease, box-shadow 0.4s ease",
         }}
       >
-        <Toolbar sx={{ justifyContent: "flex-end", py: 2 }}>
+        <Toolbar
+          sx={{
+            justifyContent: "space-between",
+            py: 2,
+            // Logo body centered under the social sidebar's icon column.
+            pl: { xs: 2.5, lg: 6.5 },
+            pr: { xs: 3, lg: 7 },
+          }}
+        >
+          {/* Brand — logo mark, links back to the top */}
+          <Box
+            component="a"
+            href="/"
+            onClick={handleLogoClick}
+            aria-label="Kelly Ton | Portfolio — back to top"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              "&:hover img": {
+                transform: "rotate(-12deg) scale(1.05)",
+              },
+            }}
+          >
+            <Box
+              component="img"
+              src="/logo-mark.png"
+              alt=""
+              sx={{
+                // logo-mark.png is the favicon with its transparent margin
+                // trimmed (tall ~506x718). Size by height and let width follow
+                // the aspect ratio so it fills the bar without squishing.
+                height: { xs: 44, sm: 52 },
+                width: "auto",
+                objectFit: "contain",
+                transition: "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            />
+          </Box>
+
           {/* Mobile hamburger — morphs into an X on toggle */}
           <IconButton
             aria-label={mobileOpen ? "close menu" : "open menu"}
