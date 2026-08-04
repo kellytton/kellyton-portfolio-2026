@@ -26,6 +26,7 @@
             "reason": "With only two engineers building the platform, every technical decision needed to support rapid development without sacrificing maintainability. I focused on creating reusable components, consistent design patterns, and clean integrations so we could continue shipping features as the product evolved."
           }
         ],
+        "iterationIntro": "As DEFTECHLINK's product direction evolved, I continuously refined the landing page experience to better align with changing business goals and user needs. Across three iterations, the feature section shifted from presenting all capabilities equally to establishing a clearer hierarchy around the platform's core value, helping users better understand the product and discover the workflows most relevant to them.",
         "design": [
           {
             "src": "/assets/projects/deftechlink/dtl-landing-wireframes.webp",
@@ -126,6 +127,7 @@
             "reason": "Rather than treating file conversion as a simple upload-and-download interaction, I designed Morph to provide continuous feedback throughout the entire process. Users can view processing progress, preview the converted file, and compare the original and optimized file sizes alongside the percentage saved."
           }
         ],
+        "iterationIntro": "As Morph grew from a single image converter into a broader file transformation toolkit, I refined the conversion experience to keep it simple as the number of supported formats increased. Across two iterations, the interface moved from asking users to choose a conversion path upfront to detecting the uploaded file and surfacing only the relevant options, then reorganized those options around the destination format so the navigation could scale without becoming harder to scan.",
         "design": [
           {
             "src": "/assets/projects/morph/morph-wireframes.webp",

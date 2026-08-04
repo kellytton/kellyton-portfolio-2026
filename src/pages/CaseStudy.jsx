@@ -734,23 +734,16 @@ function CaseStudy() {
         {/* ── Feature iteration — connected timeline story ─────────── */}
         {iterations.length > 0 && (
           <Box sx={{ mt: { xs: 8, md: 11 } }}>
-            <Box sx={{ maxWidth: 780 }}>
+            <Box sx={{ maxWidth: 780, mb: { xs: 4, md: 6 } }}>
               <SectionHeader
                 number={nextNo()}
                 title="Product Evolution & Iteration"
               />
-              <Reveal delay={120} sx={{ mb: { xs: 4, md: 6 } }}>
-                <Prose sx={{ maxWidth: 700 }}>
-                  As DEFTECHLINK's product direction evolved, I continuously
-                  refined the landing page experience to better align with
-                  changing business goals and user needs. Across three
-                  iterations, the feature section shifted from presenting all
-                  capabilities equally to establishing a clearer hierarchy
-                  around the platform's core value, helping users better
-                  understand the product and discover the workflows most
-                  relevant to them.
-                </Prose>
-              </Reveal>
+              {cs.iterationIntro && (
+                <Reveal delay={120}>
+                  <Prose sx={{ maxWidth: 700 }}>{cs.iterationIntro}</Prose>
+                </Reveal>
+              )}
             </Box>
 
             <Box>
