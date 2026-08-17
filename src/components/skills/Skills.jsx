@@ -21,7 +21,7 @@ const skillsData = [
   },
   {
     category: "BACKEND DEVELOPMENT",
-    skills: ["Flask", "SQLAlchemy", "REST APIs"],
+    skills: ["Flask", "SQLAlchemy", "Node.js", "Express.js", "REST APIs"],
   },
   {
     category: "DATABASES & DATA",
@@ -41,6 +41,8 @@ const skillsData = [
       "AWS WorkSpaces",
       "Linux",
       "macOS",
+      "Docker",
+      "Claude Code",
     ],
   },
   {
